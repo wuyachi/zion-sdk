@@ -20,20 +20,21 @@ package node_manager
 
 import (
 	"fmt"
+	zcommon "github.com/devfans/zion-sdk/common"
 	"sort"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/devfans/zion-sdk/contracts/native"
 	. "github.com/devfans/zion-sdk/contracts/native/go_abi/node_manager_abi"
 	"github.com/devfans/zion-sdk/contracts/native/utils"
-	"github.com/ethereum/go-ethereum/core/types"
+	ztypes "github.com/devfans/zion-sdk/core/types"
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/ethereum/go-ethereum/log"
 )
 
 var epochChangeFeed event.Feed
 
-func SubscribeEpochChange(ch chan<- types.EpochChangeEvent) event.Subscription {
+func SubscribeEpochChange(ch chan<- ztypes.EpochChangeEvent) event.Subscription {
 	return epochChangeFeed.Subscribe(ch)
 }
 
@@ -267,7 +268,7 @@ func Vote(s *native.NativeContract) ([]byte, error) {
 
 	// filter duplicate vote or delete old vote
 	lastVote2 := findVoteTo(s, epochID, voter)
-	if lastVote2 != common.EmptyHash {
+	if lastVote2 != zcommon.EmptyHash {
 		if lastVote2 == proposal {
 			log.Trace("vote", "check vote", "duplicate vote", "proposal", proposal.Hex(), "vote", voter.Hex())
 			return utils.ByteSuccess, nil
@@ -316,7 +317,7 @@ func Vote(s *native.NativeContract) ([]byte, error) {
 
 		dirtyJob(s, curEpoch, epoch)
 
-		epochChangeFeed.Send(types.EpochChangeEvent{
+		epochChangeFeed.Send(ztypes.EpochChangeEvent{
 			EpochID:     epoch.StartHeight,
 			StartHeight: epoch.StartHeight,
 			Validators:  epoch.MemberList(),

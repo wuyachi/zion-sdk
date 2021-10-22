@@ -17,7 +17,7 @@
  */
 
 package node_manager
-
+/*
 import (
 	"fmt"
 	"math/big"
@@ -107,3 +107,4 @@ func storeGenesisEpoch(s *state.StateDB, peers *Peers) (*EpochInfo, error) {
 
 	return epoch, nil
 }
+*/

@@ -169,7 +169,7 @@ func CheckProofResult(result, value []byte) bool {
 	var s_temp []byte
 	err := rlp.DecodeBytes(result, &s_temp)
 	if err != nil {
-		log.Errorf("checkProofResult, rlp.DecodeBytes error:%s\n", err)
+		log.Error("checkProofResult, rlp.DecodeBytes", "err", err)
 		return false
 	}
 	//

@@ -22,9 +22,10 @@ import (
 	"errors"
 
 	"github.com/ethereum/go-ethereum/common"
+	zcommon "github.com/devfans/zion-sdk/common"
 	"github.com/devfans/zion-sdk/contracts/native"
 	"github.com/devfans/zion-sdk/contracts/native/utils"
-	"github.com/ethereum/go-ethereum/core/state"
+	zstate "github.com/devfans/zion-sdk/core/state"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rlp"
 )
@@ -76,7 +77,7 @@ func delEpoch(s *native.NativeContract, epochHash common.Hash) {
 	del(s, key)
 }
 
-func setEpoch(s *state.CacheDB, epoch *EpochInfo) error {
+func setEpoch(s *zstate.CacheDB, epoch *EpochInfo) error {
 	hash := epoch.Hash()
 	key := epochKey(hash)
 
@@ -103,7 +104,7 @@ func getCurrentEpochHash(s *native.NativeContract) (common.Hash, error) {
 	key := curEpochKey()
 	value, err := get(s, key)
 	if err != nil {
-		return common.EmptyHash, err
+		return zcommon.EmptyHash, err
 	}
 	return common.BytesToHash(value), nil
 }
@@ -123,7 +124,7 @@ func getEpochProof(s *native.NativeContract, epochID uint64) (common.Hash, error
 	key := epochProofKey(EpochProofHash(epochID))
 	value, err := get(s, key)
 	if err != nil {
-		return common.EmptyHash, nil
+		return zcommon.EmptyHash, nil
 	}
 	return common.BytesToHash(value), nil
 }
@@ -362,7 +363,7 @@ func findVoteTo(s *native.NativeContract, epochID uint64, voter common.Address) 
 	key := voteToKey(epochID, voter)
 	value, err := get(s, key)
 	if err != nil {
-		return common.EmptyHash
+		return zcommon.EmptyHash
 	}
 	return common.BytesToHash(value)
 }
@@ -480,7 +481,7 @@ func del(s *native.NativeContract, key []byte) {
 	customDel(s.GetCacheDB(), key)
 }
 
-func customGet(db *state.CacheDB, key []byte) ([]byte, error) {
+func customGet(db *zstate.CacheDB, key []byte) ([]byte, error) {
 	value, err := db.Get(key)
 	if err != nil {
 		return nil, err
@@ -491,11 +492,11 @@ func customGet(db *state.CacheDB, key []byte) ([]byte, error) {
 	}
 }
 
-func customSet(db *state.CacheDB, key, value []byte) {
+func customSet(db *zstate.CacheDB, key, value []byte) {
 	db.Put(key, value)
 }
 
-func customDel(db *state.CacheDB, key []byte) {
+func customDel(db *zstate.CacheDB, key []byte) {
 	db.Delete(key)
 }
 

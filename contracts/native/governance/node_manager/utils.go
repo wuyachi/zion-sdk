@@ -22,6 +22,7 @@ import (
 	"fmt"
 
 	"github.com/ethereum/go-ethereum/common"
+	zcommon "github.com/devfans/zion-sdk/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/devfans/zion-sdk/contracts/native"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -75,7 +76,7 @@ func checkAuthority(origin, caller common.Address, epoch *EpochInfo) error {
 	if epoch == nil || epoch.Peers == nil || epoch.Peers.List == nil {
 		return fmt.Errorf("invalid epoch")
 	}
-	if origin == common.EmptyAddress || caller == common.EmptyAddress {
+	if origin == zcommon.EmptyAddress || caller == zcommon.EmptyAddress {
 		return fmt.Errorf("origin/caller is empty address")
 	}
 	if origin != caller {
@@ -90,7 +91,7 @@ func checkAuthority(origin, caller common.Address, epoch *EpochInfo) error {
 }
 
 func checkPeer(peer *PeerInfo) error {
-	if peer == nil || peer.Address == common.EmptyAddress || peer.PubKey == "" {
+	if peer == nil || peer.Address == zcommon.EmptyAddress || peer.PubKey == "" {
 		return fmt.Errorf("invalid peer")
 	}
 
@@ -103,7 +104,7 @@ func checkPeer(peer *PeerInfo) error {
 		return err
 	}
 	addr := crypto.PubkeyToAddress(*pubkey)
-	if addr == common.EmptyAddress {
+	if addr == zcommon.EmptyAddress {
 		return fmt.Errorf("invalid pubkey")
 	}
 	if addr != peer.Address {

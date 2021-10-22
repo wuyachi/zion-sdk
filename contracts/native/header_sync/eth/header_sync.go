@@ -26,12 +26,12 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus"
 	"github.com/devfans/zion-sdk/contracts/native"
 	"github.com/devfans/zion-sdk/contracts/native/governance/node_manager"
 	scom "github.com/devfans/zion-sdk/contracts/native/header_sync/common"
 	"github.com/devfans/zion-sdk/contracts/native/utils"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/consensus"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/params"
@@ -116,7 +116,7 @@ func (this *ETHHandler) SyncBlockHeader(native *native.NativeContract) error {
 			return fmt.Errorf("SyncBlockHeader, check header exist err: %v", err)
 		}
 		if exist == true {
-			log.Warnf("SyncBlockHeader, header has exist. Header: %s", string(v))
+			log.Warn("SyncBlockHeader, header has exist","header", string(v))
 			continue
 		}
 		// get pre header
