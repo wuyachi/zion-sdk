@@ -20,38 +20,17 @@ var (
 	_ = big.NewInt
 	_ = strings.NewReader
 	_ = ethereum.NotFound
+	_ = abi.U256
 	_ = bind.Bind
 	_ = common.Big1
 	_ = types.BloomLookup
 	_ = event.NewSubscription
 )
 
-var (
-	MethodPropose = "propose"
-
-	MethodVote = "vote"
-
-	MethodEpoch = "epoch"
-
-	MethodGetChangingEpoch = "getChangingEpoch"
-
-	MethodGetEpochByID = "getEpochByID"
-
-	MethodName = "name"
-
-	MethodProof = "proof"
-
-	EventConsensusSigned = "ConsensusSigned"
-
-	EventEpochChanged = "EpochChanged"
-
-	EventProposed = "Proposed"
-
-	EventVoted = "Voted"
-)
-
 // INodeManagerABI is the input ABI used to generate the binding from.
-const INodeManagerABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"method\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"input\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"size\",\"type\":\"uint64\"}],\"name\":\"ConsensusSigned\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"epoch\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"nextEpoch\",\"type\":\"bytes\"}],\"name\":\"EpochChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"epoch\",\"type\":\"bytes\"}],\"name\":\"Proposed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"epochHash\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"votedNumber\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"groupSize\",\"type\":\"uint64\"}],\"name\":\"Voted\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"epoch\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getChangingEpoch\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"}],\"name\":\"getEpochByID\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"}],\"name\":\"proof\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"startHeight\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"peers\",\"type\":\"bytes\"}],\"name\":\"propose\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"epochHash\",\"type\":\"bytes\"}],\"name\":\"vote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const INodeManagerABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"method\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"input\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"size\",\"type\":\"uint64\"}],\"name\":\"ConsensusSigned\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"epoch\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"nextEpoch\",\"type\":\"bytes\"}],\"name\":\"EpochChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"epoch\",\"type\":\"bytes\"}],\"name\":\"Proposed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"epochHash\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"votedNumber\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"groupSize\",\"type\":\"uint64\"}],\"name\":\"Voted\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"epoch\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getChangingEpoch\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"}],\"name\":\"getEpochByID\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"}],\"name\":\"proof\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"startHeight\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"peers\",\"type\":\"bytes\"}],\"name\":\"propose\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"epochHash\",\"type\":\"bytes\"}],\"name\":\"vote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+
+var INodeManagerParsedABI, _ = abi.JSON(strings.NewReader(INodeManagerABI))
 
 // INodeManagerFuncSigs maps the 4-byte function signature to its string representation.
 var INodeManagerFuncSigs = map[string]string{
@@ -172,7 +151,7 @@ func bindINodeManager(address common.Address, caller bind.ContractCaller, transa
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_INodeManager *INodeManagerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_INodeManager *INodeManagerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _INodeManager.Contract.INodeManagerCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -191,7 +170,7 @@ func (_INodeManager *INodeManagerRaw) Transact(opts *bind.TransactOpts, method s
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_INodeManager *INodeManagerCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_INodeManager *INodeManagerCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _INodeManager.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -208,155 +187,130 @@ func (_INodeManager *INodeManagerTransactorRaw) Transact(opts *bind.TransactOpts
 
 // Epoch is a free data retrieval call binding the contract method 0x900cf0cf.
 //
-// Solidity: function epoch() view returns(bytes)
+// Solidity: function epoch() constant returns(bytes)
 func (_INodeManager *INodeManagerCaller) Epoch(opts *bind.CallOpts) ([]byte, error) {
-	var out []interface{}
-	err := _INodeManager.contract.Call(opts, &out, "epoch")
-
-	if err != nil {
-		return *new([]byte), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([]byte)).(*[]byte)
-
-	return out0, err
-
+	var (
+		ret0 = new([]byte)
+	)
+	out := ret0
+	err := _INodeManager.contract.Call(opts, out, "epoch")
+	return *ret0, err
 }
 
 // Epoch is a free data retrieval call binding the contract method 0x900cf0cf.
 //
-// Solidity: function epoch() view returns(bytes)
+// Solidity: function epoch() constant returns(bytes)
 func (_INodeManager *INodeManagerSession) Epoch() ([]byte, error) {
 	return _INodeManager.Contract.Epoch(&_INodeManager.CallOpts)
 }
 
 // Epoch is a free data retrieval call binding the contract method 0x900cf0cf.
 //
-// Solidity: function epoch() view returns(bytes)
+// Solidity: function epoch() constant returns(bytes)
 func (_INodeManager *INodeManagerCallerSession) Epoch() ([]byte, error) {
 	return _INodeManager.Contract.Epoch(&_INodeManager.CallOpts)
 }
 
 // GetChangingEpoch is a free data retrieval call binding the contract method 0x76b85cd9.
 //
-// Solidity: function getChangingEpoch() view returns(bytes)
+// Solidity: function getChangingEpoch() constant returns(bytes)
 func (_INodeManager *INodeManagerCaller) GetChangingEpoch(opts *bind.CallOpts) ([]byte, error) {
-	var out []interface{}
-	err := _INodeManager.contract.Call(opts, &out, "getChangingEpoch")
-
-	if err != nil {
-		return *new([]byte), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([]byte)).(*[]byte)
-
-	return out0, err
-
+	var (
+		ret0 = new([]byte)
+	)
+	out := ret0
+	err := _INodeManager.contract.Call(opts, out, "getChangingEpoch")
+	return *ret0, err
 }
 
 // GetChangingEpoch is a free data retrieval call binding the contract method 0x76b85cd9.
 //
-// Solidity: function getChangingEpoch() view returns(bytes)
+// Solidity: function getChangingEpoch() constant returns(bytes)
 func (_INodeManager *INodeManagerSession) GetChangingEpoch() ([]byte, error) {
 	return _INodeManager.Contract.GetChangingEpoch(&_INodeManager.CallOpts)
 }
 
 // GetChangingEpoch is a free data retrieval call binding the contract method 0x76b85cd9.
 //
-// Solidity: function getChangingEpoch() view returns(bytes)
+// Solidity: function getChangingEpoch() constant returns(bytes)
 func (_INodeManager *INodeManagerCallerSession) GetChangingEpoch() ([]byte, error) {
 	return _INodeManager.Contract.GetChangingEpoch(&_INodeManager.CallOpts)
 }
 
 // GetEpochByID is a free data retrieval call binding the contract method 0xb9dda35e.
 //
-// Solidity: function getEpochByID(uint64 epochID) view returns(bytes)
+// Solidity: function getEpochByID(uint64 epochID) constant returns(bytes)
 func (_INodeManager *INodeManagerCaller) GetEpochByID(opts *bind.CallOpts, epochID uint64) ([]byte, error) {
-	var out []interface{}
-	err := _INodeManager.contract.Call(opts, &out, "getEpochByID", epochID)
-
-	if err != nil {
-		return *new([]byte), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([]byte)).(*[]byte)
-
-	return out0, err
-
+	var (
+		ret0 = new([]byte)
+	)
+	out := ret0
+	err := _INodeManager.contract.Call(opts, out, "getEpochByID", epochID)
+	return *ret0, err
 }
 
 // GetEpochByID is a free data retrieval call binding the contract method 0xb9dda35e.
 //
-// Solidity: function getEpochByID(uint64 epochID) view returns(bytes)
+// Solidity: function getEpochByID(uint64 epochID) constant returns(bytes)
 func (_INodeManager *INodeManagerSession) GetEpochByID(epochID uint64) ([]byte, error) {
 	return _INodeManager.Contract.GetEpochByID(&_INodeManager.CallOpts, epochID)
 }
 
 // GetEpochByID is a free data retrieval call binding the contract method 0xb9dda35e.
 //
-// Solidity: function getEpochByID(uint64 epochID) view returns(bytes)
+// Solidity: function getEpochByID(uint64 epochID) constant returns(bytes)
 func (_INodeManager *INodeManagerCallerSession) GetEpochByID(epochID uint64) ([]byte, error) {
 	return _INodeManager.Contract.GetEpochByID(&_INodeManager.CallOpts, epochID)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
-// Solidity: function name() view returns(string)
+// Solidity: function name() constant returns(string)
 func (_INodeManager *INodeManagerCaller) Name(opts *bind.CallOpts) (string, error) {
-	var out []interface{}
-	err := _INodeManager.contract.Call(opts, &out, "name")
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
+	var (
+		ret0 = new(string)
+	)
+	out := ret0
+	err := _INodeManager.contract.Call(opts, out, "name")
+	return *ret0, err
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
-// Solidity: function name() view returns(string)
+// Solidity: function name() constant returns(string)
 func (_INodeManager *INodeManagerSession) Name() (string, error) {
 	return _INodeManager.Contract.Name(&_INodeManager.CallOpts)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
-// Solidity: function name() view returns(string)
+// Solidity: function name() constant returns(string)
 func (_INodeManager *INodeManagerCallerSession) Name() (string, error) {
 	return _INodeManager.Contract.Name(&_INodeManager.CallOpts)
 }
 
 // Proof is a free data retrieval call binding the contract method 0x418f9899.
 //
-// Solidity: function proof(uint64 epochID) view returns(bytes)
+// Solidity: function proof(uint64 epochID) constant returns(bytes)
 func (_INodeManager *INodeManagerCaller) Proof(opts *bind.CallOpts, epochID uint64) ([]byte, error) {
-	var out []interface{}
-	err := _INodeManager.contract.Call(opts, &out, "proof", epochID)
-
-	if err != nil {
-		return *new([]byte), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([]byte)).(*[]byte)
-
-	return out0, err
-
+	var (
+		ret0 = new([]byte)
+	)
+	out := ret0
+	err := _INodeManager.contract.Call(opts, out, "proof", epochID)
+	return *ret0, err
 }
 
 // Proof is a free data retrieval call binding the contract method 0x418f9899.
 //
-// Solidity: function proof(uint64 epochID) view returns(bytes)
+// Solidity: function proof(uint64 epochID) constant returns(bytes)
 func (_INodeManager *INodeManagerSession) Proof(epochID uint64) ([]byte, error) {
 	return _INodeManager.Contract.Proof(&_INodeManager.CallOpts, epochID)
 }
 
 // Proof is a free data retrieval call binding the contract method 0x418f9899.
 //
-// Solidity: function proof(uint64 epochID) view returns(bytes)
+// Solidity: function proof(uint64 epochID) constant returns(bytes)
 func (_INodeManager *INodeManagerCallerSession) Proof(epochID uint64) ([]byte, error) {
 	return _INodeManager.Contract.Proof(&_INodeManager.CallOpts, epochID)
 }
@@ -491,6 +445,8 @@ func (_INodeManager *INodeManagerFilterer) FilterConsensusSigned(opts *bind.Filt
 	return &INodeManagerConsensusSignedIterator{contract: _INodeManager.contract, event: "ConsensusSigned", logs: logs, sub: sub}, nil
 }
 
+var ConsensusSignedTopicHash = "0x0061afebf4fdedb651e1607bf3b25a3b5073565ab6424ca51a4e66bd632b15ce"
+
 // WatchConsensusSigned is a free log subscription operation binding the contract event 0x0061afebf4fdedb651e1607bf3b25a3b5073565ab6424ca51a4e66bd632b15ce.
 //
 // Solidity: event ConsensusSigned(string method, bytes input, address signer, uint64 size)
@@ -536,7 +492,6 @@ func (_INodeManager *INodeManagerFilterer) ParseConsensusSigned(log types.Log) (
 	if err := _INodeManager.contract.UnpackLog(event, "ConsensusSigned", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -626,6 +581,8 @@ func (_INodeManager *INodeManagerFilterer) FilterEpochChanged(opts *bind.FilterO
 	return &INodeManagerEpochChangedIterator{contract: _INodeManager.contract, event: "EpochChanged", logs: logs, sub: sub}, nil
 }
 
+var EpochChangedTopicHash = "0x5bad90814f3890720ae7e64921fad1d8441d38991c42dd2958fba86418bc120c"
+
 // WatchEpochChanged is a free log subscription operation binding the contract event 0x5bad90814f3890720ae7e64921fad1d8441d38991c42dd2958fba86418bc120c.
 //
 // Solidity: event EpochChanged(bytes epoch, bytes nextEpoch)
@@ -671,7 +628,6 @@ func (_INodeManager *INodeManagerFilterer) ParseEpochChanged(log types.Log) (*IN
 	if err := _INodeManager.contract.UnpackLog(event, "EpochChanged", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -760,6 +716,8 @@ func (_INodeManager *INodeManagerFilterer) FilterProposed(opts *bind.FilterOpts)
 	return &INodeManagerProposedIterator{contract: _INodeManager.contract, event: "Proposed", logs: logs, sub: sub}, nil
 }
 
+var ProposedTopicHash = "0x10b2060c55406ea48522476f67fd813d4984b12078555d3e2a377e35839d7d01"
+
 // WatchProposed is a free log subscription operation binding the contract event 0x10b2060c55406ea48522476f67fd813d4984b12078555d3e2a377e35839d7d01.
 //
 // Solidity: event Proposed(bytes epoch)
@@ -805,7 +763,6 @@ func (_INodeManager *INodeManagerFilterer) ParseProposed(log types.Log) (*INodeM
 	if err := _INodeManager.contract.UnpackLog(event, "Proposed", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -897,6 +854,8 @@ func (_INodeManager *INodeManagerFilterer) FilterVoted(opts *bind.FilterOpts) (*
 	return &INodeManagerVotedIterator{contract: _INodeManager.contract, event: "Voted", logs: logs, sub: sub}, nil
 }
 
+var VotedTopicHash = "0x2c3818322730b87b7a73fc5d82355f808c91822a7c4244a5ddd54e8cfd5903cd"
+
 // WatchVoted is a free log subscription operation binding the contract event 0x2c3818322730b87b7a73fc5d82355f808c91822a7c4244a5ddd54e8cfd5903cd.
 //
 // Solidity: event Voted(uint64 epochID, bytes epochHash, uint64 votedNumber, uint64 groupSize)
@@ -942,6 +901,6 @@ func (_INodeManager *INodeManagerFilterer) ParseVoted(log types.Log) (*INodeMana
 	if err := _INodeManager.contract.UnpackLog(event, "Voted", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
+

@@ -20,12 +20,12 @@ package native
 import (
 	"fmt"
 
+	"github.com/devfans/zion-sdk/contracts/native/utils"
+	zstate "github.com/devfans/zion-sdk/core/state"
 	abiPkg "github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/devfans/zion-sdk/contracts/native/utils"
 	"github.com/ethereum/go-ethereum/core/state"
-	zstate "github.com/devfans/zion-sdk/core/state"
 )
 
 type (
@@ -143,7 +143,7 @@ func (s *NativeContract) AddNotify(abi *abiPkg.ABI, topics []string, data ...int
 			}
 
 		}
-		topicIDs = append(topicIDs, eventInfo.ID)
+		topicIDs = append(topicIDs, eventInfo.ID())
 	}
 
 	topic := topics[0]

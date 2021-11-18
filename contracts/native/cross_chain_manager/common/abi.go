@@ -21,16 +21,16 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/devfans/zion-sdk/contracts/native/go_abi/cross_chain_manager_abi"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 )
 
 var (
-	MethodContractName        = cross_chain_manager_abi.MethodName
-	MethodImportOuterTransfer = cross_chain_manager_abi.MethodImportOuterTransfer
-	MethodMultiSign           = cross_chain_manager_abi.MethodMultiSign
-	MethodBlackChain          = cross_chain_manager_abi.MethodBlackChain
-	MethodWhiteChain          = cross_chain_manager_abi.MethodWhiteChain
+	MethodContractName        = "cross_chain_manager_abi.MethodName"
+	MethodImportOuterTransfer = "cross_chain_manager_abi.MethodImportOuterTransfer"
+	MethodMultiSign           = "cross_chain_manager_abi.MethodMultiSign"
+	MethodBlackChain          = "cross_chain_manager_abi.MethodBlackChain"
+	MethodWhiteChain          = "cross_chain_manager_abi.MethodWhiteChain"
 )
 
 var ABI *abi.ABI

@@ -21,15 +21,15 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/devfans/zion-sdk/contracts/native/go_abi/header_sync_abi"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 )
 
 var (
-	MethodContractName      = header_sync_abi.MethodName
-	MethodSyncGenesisHeader = header_sync_abi.MethodSyncGenesisHeader
-	MethodSyncBlockHeader   = header_sync_abi.MethodSyncBlockHeader
-	MethodSyncCrossChainMsg = header_sync_abi.MethodSyncCrossChainMsg
+	MethodContractName      = "header_sync_abi.MethodName"
+	MethodSyncGenesisHeader = "header_sync_abi.MethodSyncGenesisHeader"
+	MethodSyncBlockHeader   = "header_sync_abi.MethodSyncBlockHeader"
+	MethodSyncCrossChainMsg = "header_sync_abi.MethodSyncCrossChainMsg"
 )
 
 var GasTable = map[string]uint64{

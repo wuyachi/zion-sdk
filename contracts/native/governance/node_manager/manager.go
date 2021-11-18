@@ -25,7 +25,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/devfans/zion-sdk/contracts/native"
-	. "github.com/devfans/zion-sdk/contracts/native/go_abi/node_manager_abi"
+	// "github.com/devfans/zion-sdk/contracts/native/go_abi/node_manager_abi"
 	"github.com/devfans/zion-sdk/contracts/native/utils"
 	ztypes "github.com/devfans/zion-sdk/core/types"
 	"github.com/ethereum/go-ethereum/event"

@@ -22,11 +22,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/devfans/zion-sdk/contracts/native"
 	. "github.com/devfans/zion-sdk/contracts/native/go_abi/node_manager_abi"
 	"github.com/devfans/zion-sdk/contracts/native/utils"
+	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
 )
 
@@ -43,6 +43,17 @@ func InitABI() {
 var (
 	ABI  *abi.ABI
 	this = utils.NodeManagerContractAddress
+	MethodName = "method"
+	MethodPropose = "propose"
+	MethodVote = "vote"
+	MethodEpoch = "epoch"
+	MethodGetEpochByID = "getEpochID"
+	MethodProof = "proof"
+	EventEpochChanged = "EpochChanged"
+	MethodGetChangingEpoch = "GetChangingEpoch"
+	EventProposed = "Proposed"
+	EventVoted = "Voted"
+	EventConsensusSigned = "ConsensusSigned"
 )
 
 type MethodContractNameInput struct{}

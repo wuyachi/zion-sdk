@@ -20,48 +20,23 @@ var (
 	_ = big.NewInt
 	_ = strings.NewReader
 	_ = ethereum.NotFound
+	_ = abi.U256
 	_ = bind.Bind
 	_ = common.Big1
 	_ = types.BloomLookup
 	_ = event.NewSubscription
 )
 
-var (
-	MethodName = "name"
-
-	MethodSyncBlockHeader = "syncBlockHeader"
-
-	MethodSyncCrossChainMsg = "syncCrossChainMsg"
-
-	MethodSyncGenesisHeader = "syncGenesisHeader"
-)
-
 // HeaderSyncABI is the input ABI used to generate the binding from.
-const HeaderSyncABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"BlockHash\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"Height\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"NextValidatorsHash\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"InfoChainID\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"BlockHeight\",\"type\":\"uint64\"}],\"name\":\"OKEpochSwitchInfoEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"height\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"blockHash\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"BlockHeight\",\"type\":\"uint256\"}],\"name\":\"syncHeader\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"Name\",\"type\":\"string\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"internalType\":\"address\",\"name\":\"Address\",\"type\":\"address\"},{\"internalType\":\"bytes[]\",\"name\":\"Headers\",\"type\":\"bytes[]\"}],\"name\":\"syncBlockHeader\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"internalType\":\"address\",\"name\":\"Address\",\"type\":\"address\"},{\"internalType\":\"bytes[]\",\"name\":\"CrossChainMsgs\",\"type\":\"bytes[]\"}],\"name\":\"syncCrossChainMsg\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"GenesisHeader\",\"type\":\"bytes\"}],\"name\":\"syncGenesisHeader\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const HeaderSyncABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"BlockHash\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"Height\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"NextValidatorsHash\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"InfoChainID\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"BlockHeight\",\"type\":\"uint64\"}],\"name\":\"OKEpochSwitchInfoEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"height\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"blockHash\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"BlockHeight\",\"type\":\"uint256\"}],\"name\":\"syncHeader\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"internalType\":\"address\",\"name\":\"Address\",\"type\":\"address\"},{\"internalType\":\"bytes[]\",\"name\":\"Headers\",\"type\":\"bytes[]\"}],\"name\":\"syncBlockHeader\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"internalType\":\"address\",\"name\":\"Address\",\"type\":\"address\"},{\"internalType\":\"bytes[]\",\"name\":\"CrossChainMsgs\",\"type\":\"bytes[]\"}],\"name\":\"syncCrossChainMsg\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"GenesisHeader\",\"type\":\"bytes\"}],\"name\":\"syncGenesisHeader\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+
+var HeaderSyncParsedABI, _ = abi.JSON(strings.NewReader(HeaderSyncABI))
 
 // HeaderSyncFuncSigs maps the 4-byte function signature to its string representation.
 var HeaderSyncFuncSigs = map[string]string{
-	"06fdde03": "name()",
 	"72ce6700": "syncBlockHeader(uint64,address,bytes[])",
 	"21b5cff5": "syncCrossChainMsg(uint64,address,bytes[])",
 	"b5ace618": "syncGenesisHeader(uint64,bytes)",
-}
-
-// HeaderSyncBin is the compiled bytecode used for deploying new contracts.
-var HeaderSyncBin = "0x608060405234801561001057600080fd5b5061034b806100206000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c806306fdde031461005157806321b5cff51461006957806372ce670014610069578063b5ace61814610090575b600080fd5b60606040516100609190610279565b60405180910390f35b610080610077366004610133565b60009392505050565b6040519015158152602001610060565b61008061009e36600461022b565b600092915050565b600082601f8301126100b757600080fd5b813567ffffffffffffffff8111156100d1576100d16102ff565b6100e4601f8201601f19166020016102ce565b8181528460208386010111156100f957600080fd5b816020850160208301376000918101602001919091529392505050565b803567ffffffffffffffff8116811461012e57600080fd5b919050565b60008060006060848603121561014857600080fd5b61015184610116565b92506020848101356001600160a01b038116811461016e57600080fd5b9250604085013567ffffffffffffffff8082111561018b57600080fd5b818701915087601f83011261019f57600080fd5b8135818111156101b1576101b16102ff565b8060051b6101c08582016102ce565b8281528581019085870183870188018d10156101db57600080fd5b60009350835b85811015610218578135878111156101f7578586fd5b6102058f8b838c01016100a6565b85525092880192908801906001016101e1565b5050809750505050505050509250925092565b6000806040838503121561023e57600080fd5b61024783610116565b9150602083013567ffffffffffffffff81111561026357600080fd5b61026f858286016100a6565b9150509250929050565b600060208083528351808285015260005b818110156102a65785810183015185820160400152820161028a565b818111156102b8576000604083870101525b50601f01601f1916929092016040019392505050565b604051601f8201601f1916810167ffffffffffffffff811182821017156102f7576102f76102ff565b604052919050565b634e487b7160e01b600052604160045260246000fdfea26469706673582212204231d0ee59fc1838c92d148dc40fade4e810e808d3b6d562c1891ea89e6b013a64736f6c63430008060033"
-
-// DeployHeaderSync deploys a new Ethereum contract, binding an instance of HeaderSync to it.
-func DeployHeaderSync(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *HeaderSync, error) {
-	parsed, err := abi.JSON(strings.NewReader(HeaderSyncABI))
-	if err != nil {
-		return common.Address{}, nil, nil, err
-	}
-
-	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(HeaderSyncBin), backend)
-	if err != nil {
-		return common.Address{}, nil, nil, err
-	}
-	return address, tx, &HeaderSync{HeaderSyncCaller: HeaderSyncCaller{contract: contract}, HeaderSyncTransactor: HeaderSyncTransactor{contract: contract}, HeaderSyncFilterer: HeaderSyncFilterer{contract: contract}}, nil
 }
 
 // HeaderSync is an auto generated Go binding around an Ethereum contract.
@@ -172,7 +147,7 @@ func bindHeaderSync(address common.Address, caller bind.ContractCaller, transact
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_HeaderSync *HeaderSyncRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_HeaderSync *HeaderSyncRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _HeaderSync.Contract.HeaderSyncCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -191,7 +166,7 @@ func (_HeaderSync *HeaderSyncRaw) Transact(opts *bind.TransactOpts, method strin
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_HeaderSync *HeaderSyncCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_HeaderSync *HeaderSyncCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _HeaderSync.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -204,27 +179,6 @@ func (_HeaderSync *HeaderSyncTransactorRaw) Transfer(opts *bind.TransactOpts) (*
 // Transact invokes the (paid) contract method with params as input values.
 func (_HeaderSync *HeaderSyncTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
 	return _HeaderSync.Contract.contract.Transact(opts, method, params...)
-}
-
-// Name is a paid mutator transaction binding the contract method 0x06fdde03.
-//
-// Solidity: function name() returns(string Name)
-func (_HeaderSync *HeaderSyncTransactor) Name(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _HeaderSync.contract.Transact(opts, "name")
-}
-
-// Name is a paid mutator transaction binding the contract method 0x06fdde03.
-//
-// Solidity: function name() returns(string Name)
-func (_HeaderSync *HeaderSyncSession) Name() (*types.Transaction, error) {
-	return _HeaderSync.Contract.Name(&_HeaderSync.TransactOpts)
-}
-
-// Name is a paid mutator transaction binding the contract method 0x06fdde03.
-//
-// Solidity: function name() returns(string Name)
-func (_HeaderSync *HeaderSyncTransactorSession) Name() (*types.Transaction, error) {
-	return _HeaderSync.Contract.Name(&_HeaderSync.TransactOpts)
 }
 
 // SyncBlockHeader is a paid mutator transaction binding the contract method 0x72ce6700.
@@ -380,6 +334,8 @@ func (_HeaderSync *HeaderSyncFilterer) FilterOKEpochSwitchInfoEvent(opts *bind.F
 	return &HeaderSyncOKEpochSwitchInfoEventIterator{contract: _HeaderSync.contract, event: "OKEpochSwitchInfoEvent", logs: logs, sub: sub}, nil
 }
 
+var OKEpochSwitchInfoEventTopicHash = "0xbfd2d7144ec37c6f85850914f6d172957dd090c508f40d540062f1cd06c0852a"
+
 // WatchOKEpochSwitchInfoEvent is a free log subscription operation binding the contract event 0xbfd2d7144ec37c6f85850914f6d172957dd090c508f40d540062f1cd06c0852a.
 //
 // Solidity: event OKEpochSwitchInfoEvent(uint64 chainID, string BlockHash, uint64 Height, string NextValidatorsHash, string InfoChainID, uint64 BlockHeight)
@@ -425,7 +381,6 @@ func (_HeaderSync *HeaderSyncFilterer) ParseOKEpochSwitchInfoEvent(log types.Log
 	if err := _HeaderSync.contract.UnpackLog(event, "OKEpochSwitchInfoEvent", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -517,6 +472,8 @@ func (_HeaderSync *HeaderSyncFilterer) FilterSyncHeader(opts *bind.FilterOpts) (
 	return &HeaderSyncSyncHeaderIterator{contract: _HeaderSync.contract, event: "syncHeader", logs: logs, sub: sub}, nil
 }
 
+var SyncHeaderTopicHash = "0xe4d5dbebcfbd7358435d9d612bc7b584bc51faf456160631d2537a0de2e1a236"
+
 // WatchSyncHeader is a free log subscription operation binding the contract event 0xe4d5dbebcfbd7358435d9d612bc7b584bc51faf456160631d2537a0de2e1a236.
 //
 // Solidity: event syncHeader(uint64 chainID, uint64 height, string blockHash, uint256 BlockHeight)
@@ -562,6 +519,6 @@ func (_HeaderSync *HeaderSyncFilterer) ParseSyncHeader(log types.Log) (*HeaderSy
 	if err := _HeaderSync.contract.UnpackLog(event, "syncHeader", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
+
