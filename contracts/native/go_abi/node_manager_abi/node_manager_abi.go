@@ -1,7 +1,7 @@
 // Code generated - DO NOT EDIT.
 // This file is a generated binding and any manual changes will be lost.
 
-package node_manager_abi
+package node_manager
 
 import (
 	"math/big"
@@ -28,7 +28,7 @@ var (
 )
 
 // INodeManagerABI is the input ABI used to generate the binding from.
-const INodeManagerABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"method\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"input\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"size\",\"type\":\"uint64\"}],\"name\":\"ConsensusSigned\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"epoch\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"nextEpoch\",\"type\":\"bytes\"}],\"name\":\"EpochChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"epoch\",\"type\":\"bytes\"}],\"name\":\"Proposed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"epochHash\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"votedNumber\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"groupSize\",\"type\":\"uint64\"}],\"name\":\"Voted\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"epoch\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getChangingEpoch\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"}],\"name\":\"getEpochByID\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"}],\"name\":\"proof\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"startHeight\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"peers\",\"type\":\"bytes\"}],\"name\":\"propose\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"epochHash\",\"type\":\"bytes\"}],\"name\":\"vote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const INodeManagerABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"method\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"input\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"size\",\"type\":\"uint64\"}],\"name\":\"ConsensusSigned\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"epoch\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"nextEpoch\",\"type\":\"bytes\"}],\"name\":\"EpochChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"epoch\",\"type\":\"bytes\"}],\"name\":\"Proposed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"epochHash\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"votedNumber\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"groupSize\",\"type\":\"uint64\"}],\"name\":\"Voted\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"epoch\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getChangingEpoch\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"}],\"name\":\"getEpochByID\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"}],\"name\":\"proof\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"startHeight\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"peers\",\"type\":\"bytes\"}],\"name\":\"propose\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"epochID\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"epochHash\",\"type\":\"bytes\"}],\"name\":\"vote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
 var INodeManagerParsedABI, _ = abi.JSON(strings.NewReader(INodeManagerABI))
 
@@ -185,134 +185,109 @@ func (_INodeManager *INodeManagerTransactorRaw) Transact(opts *bind.TransactOpts
 	return _INodeManager.Contract.contract.Transact(opts, method, params...)
 }
 
-// Epoch is a free data retrieval call binding the contract method 0x900cf0cf.
+// Epoch is a paid mutator transaction binding the contract method 0x900cf0cf.
 //
-// Solidity: function epoch() constant returns(bytes)
-func (_INodeManager *INodeManagerCaller) Epoch(opts *bind.CallOpts) ([]byte, error) {
-	var (
-		ret0 = new([]byte)
-	)
-	out := ret0
-	err := _INodeManager.contract.Call(opts, out, "epoch")
-	return *ret0, err
+// Solidity: function epoch() returns(bytes)
+func (_INodeManager *INodeManagerTransactor) Epoch(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _INodeManager.contract.Transact(opts, "epoch")
 }
 
-// Epoch is a free data retrieval call binding the contract method 0x900cf0cf.
+// Epoch is a paid mutator transaction binding the contract method 0x900cf0cf.
 //
-// Solidity: function epoch() constant returns(bytes)
-func (_INodeManager *INodeManagerSession) Epoch() ([]byte, error) {
-	return _INodeManager.Contract.Epoch(&_INodeManager.CallOpts)
+// Solidity: function epoch() returns(bytes)
+func (_INodeManager *INodeManagerSession) Epoch() (*types.Transaction, error) {
+	return _INodeManager.Contract.Epoch(&_INodeManager.TransactOpts)
 }
 
-// Epoch is a free data retrieval call binding the contract method 0x900cf0cf.
+// Epoch is a paid mutator transaction binding the contract method 0x900cf0cf.
 //
-// Solidity: function epoch() constant returns(bytes)
-func (_INodeManager *INodeManagerCallerSession) Epoch() ([]byte, error) {
-	return _INodeManager.Contract.Epoch(&_INodeManager.CallOpts)
+// Solidity: function epoch() returns(bytes)
+func (_INodeManager *INodeManagerTransactorSession) Epoch() (*types.Transaction, error) {
+	return _INodeManager.Contract.Epoch(&_INodeManager.TransactOpts)
 }
 
-// GetChangingEpoch is a free data retrieval call binding the contract method 0x76b85cd9.
+// GetChangingEpoch is a paid mutator transaction binding the contract method 0x76b85cd9.
 //
-// Solidity: function getChangingEpoch() constant returns(bytes)
-func (_INodeManager *INodeManagerCaller) GetChangingEpoch(opts *bind.CallOpts) ([]byte, error) {
-	var (
-		ret0 = new([]byte)
-	)
-	out := ret0
-	err := _INodeManager.contract.Call(opts, out, "getChangingEpoch")
-	return *ret0, err
+// Solidity: function getChangingEpoch() returns(bytes)
+func (_INodeManager *INodeManagerTransactor) GetChangingEpoch(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _INodeManager.contract.Transact(opts, "getChangingEpoch")
 }
 
-// GetChangingEpoch is a free data retrieval call binding the contract method 0x76b85cd9.
+// GetChangingEpoch is a paid mutator transaction binding the contract method 0x76b85cd9.
 //
-// Solidity: function getChangingEpoch() constant returns(bytes)
-func (_INodeManager *INodeManagerSession) GetChangingEpoch() ([]byte, error) {
-	return _INodeManager.Contract.GetChangingEpoch(&_INodeManager.CallOpts)
+// Solidity: function getChangingEpoch() returns(bytes)
+func (_INodeManager *INodeManagerSession) GetChangingEpoch() (*types.Transaction, error) {
+	return _INodeManager.Contract.GetChangingEpoch(&_INodeManager.TransactOpts)
 }
 
-// GetChangingEpoch is a free data retrieval call binding the contract method 0x76b85cd9.
+// GetChangingEpoch is a paid mutator transaction binding the contract method 0x76b85cd9.
 //
-// Solidity: function getChangingEpoch() constant returns(bytes)
-func (_INodeManager *INodeManagerCallerSession) GetChangingEpoch() ([]byte, error) {
-	return _INodeManager.Contract.GetChangingEpoch(&_INodeManager.CallOpts)
+// Solidity: function getChangingEpoch() returns(bytes)
+func (_INodeManager *INodeManagerTransactorSession) GetChangingEpoch() (*types.Transaction, error) {
+	return _INodeManager.Contract.GetChangingEpoch(&_INodeManager.TransactOpts)
 }
 
-// GetEpochByID is a free data retrieval call binding the contract method 0xb9dda35e.
+// GetEpochByID is a paid mutator transaction binding the contract method 0xb9dda35e.
 //
-// Solidity: function getEpochByID(uint64 epochID) constant returns(bytes)
-func (_INodeManager *INodeManagerCaller) GetEpochByID(opts *bind.CallOpts, epochID uint64) ([]byte, error) {
-	var (
-		ret0 = new([]byte)
-	)
-	out := ret0
-	err := _INodeManager.contract.Call(opts, out, "getEpochByID", epochID)
-	return *ret0, err
+// Solidity: function getEpochByID(uint64 epochID) returns(bytes)
+func (_INodeManager *INodeManagerTransactor) GetEpochByID(opts *bind.TransactOpts, epochID uint64) (*types.Transaction, error) {
+	return _INodeManager.contract.Transact(opts, "getEpochByID", epochID)
 }
 
-// GetEpochByID is a free data retrieval call binding the contract method 0xb9dda35e.
+// GetEpochByID is a paid mutator transaction binding the contract method 0xb9dda35e.
 //
-// Solidity: function getEpochByID(uint64 epochID) constant returns(bytes)
-func (_INodeManager *INodeManagerSession) GetEpochByID(epochID uint64) ([]byte, error) {
-	return _INodeManager.Contract.GetEpochByID(&_INodeManager.CallOpts, epochID)
+// Solidity: function getEpochByID(uint64 epochID) returns(bytes)
+func (_INodeManager *INodeManagerSession) GetEpochByID(epochID uint64) (*types.Transaction, error) {
+	return _INodeManager.Contract.GetEpochByID(&_INodeManager.TransactOpts, epochID)
 }
 
-// GetEpochByID is a free data retrieval call binding the contract method 0xb9dda35e.
+// GetEpochByID is a paid mutator transaction binding the contract method 0xb9dda35e.
 //
-// Solidity: function getEpochByID(uint64 epochID) constant returns(bytes)
-func (_INodeManager *INodeManagerCallerSession) GetEpochByID(epochID uint64) ([]byte, error) {
-	return _INodeManager.Contract.GetEpochByID(&_INodeManager.CallOpts, epochID)
+// Solidity: function getEpochByID(uint64 epochID) returns(bytes)
+func (_INodeManager *INodeManagerTransactorSession) GetEpochByID(epochID uint64) (*types.Transaction, error) {
+	return _INodeManager.Contract.GetEpochByID(&_INodeManager.TransactOpts, epochID)
 }
 
-// Name is a free data retrieval call binding the contract method 0x06fdde03.
+// Name is a paid mutator transaction binding the contract method 0x06fdde03.
 //
-// Solidity: function name() constant returns(string)
-func (_INodeManager *INodeManagerCaller) Name(opts *bind.CallOpts) (string, error) {
-	var (
-		ret0 = new(string)
-	)
-	out := ret0
-	err := _INodeManager.contract.Call(opts, out, "name")
-	return *ret0, err
+// Solidity: function name() returns(string)
+func (_INodeManager *INodeManagerTransactor) Name(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _INodeManager.contract.Transact(opts, "name")
 }
 
-// Name is a free data retrieval call binding the contract method 0x06fdde03.
+// Name is a paid mutator transaction binding the contract method 0x06fdde03.
 //
-// Solidity: function name() constant returns(string)
-func (_INodeManager *INodeManagerSession) Name() (string, error) {
-	return _INodeManager.Contract.Name(&_INodeManager.CallOpts)
+// Solidity: function name() returns(string)
+func (_INodeManager *INodeManagerSession) Name() (*types.Transaction, error) {
+	return _INodeManager.Contract.Name(&_INodeManager.TransactOpts)
 }
 
-// Name is a free data retrieval call binding the contract method 0x06fdde03.
+// Name is a paid mutator transaction binding the contract method 0x06fdde03.
 //
-// Solidity: function name() constant returns(string)
-func (_INodeManager *INodeManagerCallerSession) Name() (string, error) {
-	return _INodeManager.Contract.Name(&_INodeManager.CallOpts)
+// Solidity: function name() returns(string)
+func (_INodeManager *INodeManagerTransactorSession) Name() (*types.Transaction, error) {
+	return _INodeManager.Contract.Name(&_INodeManager.TransactOpts)
 }
 
-// Proof is a free data retrieval call binding the contract method 0x418f9899.
+// Proof is a paid mutator transaction binding the contract method 0x418f9899.
 //
-// Solidity: function proof(uint64 epochID) constant returns(bytes)
-func (_INodeManager *INodeManagerCaller) Proof(opts *bind.CallOpts, epochID uint64) ([]byte, error) {
-	var (
-		ret0 = new([]byte)
-	)
-	out := ret0
-	err := _INodeManager.contract.Call(opts, out, "proof", epochID)
-	return *ret0, err
+// Solidity: function proof(uint64 epochID) returns(bytes)
+func (_INodeManager *INodeManagerTransactor) Proof(opts *bind.TransactOpts, epochID uint64) (*types.Transaction, error) {
+	return _INodeManager.contract.Transact(opts, "proof", epochID)
 }
 
-// Proof is a free data retrieval call binding the contract method 0x418f9899.
+// Proof is a paid mutator transaction binding the contract method 0x418f9899.
 //
-// Solidity: function proof(uint64 epochID) constant returns(bytes)
-func (_INodeManager *INodeManagerSession) Proof(epochID uint64) ([]byte, error) {
-	return _INodeManager.Contract.Proof(&_INodeManager.CallOpts, epochID)
+// Solidity: function proof(uint64 epochID) returns(bytes)
+func (_INodeManager *INodeManagerSession) Proof(epochID uint64) (*types.Transaction, error) {
+	return _INodeManager.Contract.Proof(&_INodeManager.TransactOpts, epochID)
 }
 
-// Proof is a free data retrieval call binding the contract method 0x418f9899.
+// Proof is a paid mutator transaction binding the contract method 0x418f9899.
 //
-// Solidity: function proof(uint64 epochID) constant returns(bytes)
-func (_INodeManager *INodeManagerCallerSession) Proof(epochID uint64) ([]byte, error) {
-	return _INodeManager.Contract.Proof(&_INodeManager.CallOpts, epochID)
+// Solidity: function proof(uint64 epochID) returns(bytes)
+func (_INodeManager *INodeManagerTransactorSession) Proof(epochID uint64) (*types.Transaction, error) {
+	return _INodeManager.Contract.Proof(&_INodeManager.TransactOpts, epochID)
 }
 
 // Propose is a paid mutator transaction binding the contract method 0xbcc12328.
@@ -903,4 +878,3 @@ func (_INodeManager *INodeManagerFilterer) ParseVoted(log types.Log) (*INodeMana
 	}
 	return event, nil
 }
-
