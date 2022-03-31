@@ -19,7 +19,7 @@ package okex
 import (
 	"encoding/hex"
 	"fmt"
-
+	"io"
 	"bytes"
 
 	tbytes "github.com/tendermint/tendermint/libs/bytes"
@@ -30,8 +30,7 @@ import (
 	hscommon "github.com/devfans/zion-sdk/contracts/native/header_sync/common"
 	"github.com/devfans/zion-sdk/contracts/native/header_sync/okex/ethsecp256k1"
 	"github.com/devfans/zion-sdk/contracts/native/utils"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/polynetwork/poly/common"
+	"github.com/ethereum/go-ethereum/rlp"
 	cstates "github.com/polynetwork/poly/core/states"
 	"github.com/tendermint/tendermint/types"
 )
@@ -89,7 +88,7 @@ func (h *Handler) SyncGenesisHeader(native *native.NativeContract) (err error) {
 		return fmt.Errorf("CosmosHandler SyncGenesisHeader, genesis header had been initialized")
 	}
 	PutEpochSwitchInfo(native, param.ChainID, &CosmosEpochSwitchInfo{
-		Height:             header.Header.Height,
+		Height:             uint64(header.Header.Height),
 		NextValidatorsHash: header.Header.NextValidatorsHash,
 		ChainID:            header.Header.ChainID,
 		BlockHash:          header.Header.Hash(),
@@ -121,16 +120,14 @@ func (h *Handler) SyncBlockHeader(native *native.NativeContract) error {
 		if bytes.Equal(myHeader.Header.NextValidatorsHash, myHeader.Header.ValidatorsHash) {
 			continue
 		}
-		if info.Height >= myHeader.Header.Height {
-			log.Debugf("SyncBlockHeader, height %d is lower or equal than epoch switching height %d",
-				myHeader.Header.Height, info.Height)
+		if info.Height >= uint64(myHeader.Header.Height) {
 			continue
 		}
 		if err = VerifyCosmosHeader(&myHeader, info); err != nil {
 			return fmt.Errorf("SyncBlockHeader, failed to verify header: %v", err)
 		}
 		info.NextValidatorsHash = myHeader.Header.NextValidatorsHash
-		info.Height = myHeader.Header.Height
+		info.Height = uint64(myHeader.Header.Height)
 		info.BlockHash = myHeader.Header.Hash()
 		cnt++
 	}
@@ -152,23 +149,15 @@ func GetEpochSwitchInfo(service *native.NativeContract, chainId uint64) (*Cosmos
 	if err != nil {
 		return nil, fmt.Errorf("failed to get epoch switching height: %v", err)
 	}
-	raw, err := cstates.GetValueFromRawStorageItem(val)
+	_, err = cstates.GetValueFromRawStorageItem(val)
 	if err != nil {
 		return nil, fmt.Errorf("deserialize bytes from raw storage item err: %v", err)
 	}
 	info := &CosmosEpochSwitchInfo{}
-	if err = info.Deserialization(common.NewZeroCopySource(raw)); err != nil {
-		return nil, fmt.Errorf("failed to deserialize CosmosEpochSwitchInfo: %v", err)
-	}
 	return info, nil
 }
 
 func PutEpochSwitchInfo(service *native.NativeContract, chainId uint64, info *CosmosEpochSwitchInfo) {
-	sink := common.NewZeroCopySink(nil)
-	info.Serialization(sink)
-	service.GetCacheDB().Put(
-		utils.ConcatKey(utils.HeaderSyncContractAddress, []byte(hscommon.EPOCH_SWITCH), utils.GetUint64Bytes(chainId)),
-		cstates.GenRawStorageItem(sink.Bytes()))
 	notifyEpochSwitchInfo(service, chainId, info)
 }
 
@@ -183,7 +172,7 @@ type CosmosEpochSwitchInfo struct {
 	// The height where validators set changed last time. Poly only accept
 	// header and proof signed by new validators. That means the header
 	// can not be lower than this height.
-	Height int64
+	Height uint64
 
 	// Hash of the block at `Height`. Poly don't save the whole header.
 	// So we can identify the content of this block by `BlockHash`.
@@ -197,8 +186,28 @@ type CosmosEpochSwitchInfo struct {
 	ChainID string
 }
 
+func (m *CosmosEpochSwitchInfo) EncodeRLP(w io.Writer) error {
+	return rlp.Encode(w, []interface{}{m.Height, m.BlockHash, m.NextValidatorsHash, m.ChainID})
+}
+
+func (m *CosmosEpochSwitchInfo) DecodeRLP(s *rlp.Stream) error {
+	var data struct {
+		Height             uint64
+		BlockHash          tbytes.HexBytes
+		NextValidatorsHash tbytes.HexBytes
+		ChainID            string
+	}
+
+	if err := s.Decode(&data); err != nil {
+		return err
+	}
+	m.Height, m.BlockHash, m.NextValidatorsHash, m.ChainID = data.Height, data.BlockHash, data.NextValidatorsHash, data.ChainID
+	return nil
+}
+
+/*
 func (info *CosmosEpochSwitchInfo) Serialization(sink *common.ZeroCopySink) {
-	sink.WriteInt64(info.Height)
+	sink.WriteUInt64(info.Height)
 	sink.WriteVarBytes(info.BlockHash)
 	sink.WriteVarBytes(info.NextValidatorsHash)
 	sink.WriteString(info.ChainID)
@@ -206,7 +215,7 @@ func (info *CosmosEpochSwitchInfo) Serialization(sink *common.ZeroCopySink) {
 
 func (info *CosmosEpochSwitchInfo) Deserialization(source *common.ZeroCopySource) error {
 	var eof bool
-	info.Height, eof = source.NextInt64()
+	info.Height, eof = source.NextUInt64()
 	if eof {
 		return fmt.Errorf("deserialize height of CosmosEpochSwitchInfo failed")
 	}
@@ -224,6 +233,7 @@ func (info *CosmosEpochSwitchInfo) Deserialization(source *common.ZeroCopySource
 	}
 	return nil
 }
+*/
 
 func VerifyCosmosHeader(myHeader *CosmosHeader, info *CosmosEpochSwitchInfo) error {
 	// now verify this header
