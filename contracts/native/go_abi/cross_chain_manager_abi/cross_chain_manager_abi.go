@@ -4,6 +4,7 @@
 package cross_chain_manager_abi
 
 import (
+	"errors"
 	"math/big"
 	"strings"
 
@@ -17,6 +18,7 @@ import (
 
 // Reference imports to suppress errors if they are not otherwise used.
 var (
+	_ = errors.New
 	_ = big.NewInt
 	_ = strings.NewReader
 	_ = ethereum.NotFound
@@ -26,52 +28,43 @@ var (
 	_ = event.NewSubscription
 )
 
-var (
-	MethodBlackChain = "BlackChain"
-
-	MethodMultiSign = "MultiSign"
-
-	MethodWhiteChain = "WhiteChain"
-
-	MethodCheckDone = "checkDone"
-
-	MethodImportOuterTransfer = "importOuterTransfer"
-
-	MethodName = "name"
-
-	EventBtcTxMultiSignEvent = "btcTxMultiSignEvent"
-
-	EventBtcTxToRelayEvent = "btcTxToRelayEvent"
-
-	EventMakeBtcTxEvent = "makeBtcTxEvent"
-
-	EventMakeProof = "makeProof"
-)
-
-// CrossChainManagerABI is the input ABI used to generate the binding from.
-const CrossChainManagerABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"TxHash\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"MultiSign\",\"type\":\"bytes\"}],\"name\":\"btcTxMultiSignEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"FromChainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"buf\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"FromTxHash\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"RedeemKey\",\"type\":\"string\"}],\"name\":\"btcTxToRelayEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"rk\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"buf\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64[]\",\"name\":\"amts\",\"type\":\"uint64[]\"}],\"name\":\"makeBtcTxEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"merkleValueHex\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"BlockHeight\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"key\",\"type\":\"string\"}],\"name\":\"makeProof\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"}],\"name\":\"BlackChain\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"internalType\":\"string\",\"name\":\"RedeemKey\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"TxHash\",\"type\":\"bytes\"},{\"internalType\":\"string\",\"name\":\"Address\",\"type\":\"string\"},{\"internalType\":\"bytes[]\",\"name\":\"Signs\",\"type\":\"bytes[]\"}],\"name\":\"MultiSign\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"}],\"name\":\"WhiteChain\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"crossChainID\",\"type\":\"bytes\"}],\"name\":\"checkDone\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"SourceChainID\",\"type\":\"uint64\"},{\"internalType\":\"uint32\",\"name\":\"Height\",\"type\":\"uint32\"},{\"internalType\":\"bytes\",\"name\":\"Proof\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"RelayerAddress\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"Extra\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"HeaderOrCrossChainMsg\",\"type\":\"bytes\"}],\"name\":\"importOuterTransfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"Name\",\"type\":\"string\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
-
-// CrossChainManagerFuncSigs maps the 4-byte function signature to its string representation.
-var CrossChainManagerFuncSigs = map[string]string{
-	"8a449f03": "BlackChain(uint64)",
-	"48c79d9d": "MultiSign(uint64,string,bytes,string,bytes[])",
-	"99d0e87a": "WhiteChain(uint64)",
-	"1245f8d5": "checkDone(uint64,bytes)",
-	"5b60b01e": "importOuterTransfer(uint64,uint32,bytes,bytes,bytes,bytes)",
-	"06fdde03": "name()",
+// CrossChainManagerMetaData contains all meta data concerning the CrossChainManager contract.
+var CrossChainManagerMetaData = &bind.MetaData{
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"TxHash\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"MultiSign\",\"type\":\"bytes\"}],\"name\":\"btcTxMultiSignEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"FromChainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"buf\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"FromTxHash\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"RedeemKey\",\"type\":\"string\"}],\"name\":\"btcTxToRelayEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"rk\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"buf\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64[]\",\"name\":\"amts\",\"type\":\"uint64[]\"}],\"name\":\"makeBtcTxEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"merkleValueHex\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"BlockHeight\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"key\",\"type\":\"string\"}],\"name\":\"makeProof\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"}],\"name\":\"BlackChain\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"internalType\":\"string\",\"name\":\"RedeemKey\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"TxHash\",\"type\":\"bytes\"},{\"internalType\":\"string\",\"name\":\"Address\",\"type\":\"string\"},{\"internalType\":\"bytes[]\",\"name\":\"Signs\",\"type\":\"bytes[]\"}],\"name\":\"MultiSign\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"}],\"name\":\"WhiteChain\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"crossChainID\",\"type\":\"bytes\"}],\"name\":\"checkDone\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"SourceChainID\",\"type\":\"uint64\"},{\"internalType\":\"uint32\",\"name\":\"Height\",\"type\":\"uint32\"},{\"internalType\":\"bytes\",\"name\":\"Proof\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"RelayerAddress\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"Extra\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"HeaderOrCrossChainMsg\",\"type\":\"bytes\"}],\"name\":\"importOuterTransfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"Name\",\"type\":\"string\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	Sigs: map[string]string{
+		"8a449f03": "BlackChain(uint64)",
+		"48c79d9d": "MultiSign(uint64,string,bytes,string,bytes[])",
+		"99d0e87a": "WhiteChain(uint64)",
+		"1245f8d5": "checkDone(uint64,bytes)",
+		"5b60b01e": "importOuterTransfer(uint64,uint32,bytes,bytes,bytes,bytes)",
+		"06fdde03": "name()",
+	},
+	Bin: "0x608060405234801561001057600080fd5b506104f9806100206000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c806306fdde03146100675780631245f8d51461008557806348c79d9d146100a55780635b60b01e146100b85780638a449f03146100cb57806399d0e87a146100cb575b600080fd5b61006f6100de565b60405161007c9190610430565b60405180910390f35b6100986100933660046101c3565b6100e3565b60405161007c9190610425565b6100986100b3366004610241565b6100ec565b6100986100c636600461035d565b6100f7565b6100986100d93660046101a2565b610103565b606090565b60009392505050565b600095945050505050565b60009695505050505050565b60005b919050565b600082601f83011261011b578081fd5b813567ffffffffffffffff811115610135576101356104ad565b610148601f8201601f1916602001610483565b81815284602083860101111561015c578283fd5b816020850160208301379081016020019190915292915050565b803563ffffffff8116811461010657600080fd5b803567ffffffffffffffff8116811461010657600080fd5b6000602082840312156101b3578081fd5b6101bc8261018a565b9392505050565b6000806000604084860312156101d7578182fd5b6101e08461018a565b9250602084013567ffffffffffffffff808211156101fc578384fd5b818601915086601f83011261020f578384fd5b81358181111561021d578485fd5b87602082850101111561022e578485fd5b6020830194508093505050509250925092565b600080600080600060a08688031215610258578081fd5b6102618661018a565b945060208087013567ffffffffffffffff8082111561027e578384fd5b61028a8a838b0161010b565b9650604089013591508082111561029f578384fd5b6102ab8a838b0161010b565b955060608901359150808211156102c0578384fd5b6102cc8a838b0161010b565b945060808901359150808211156102e1578384fd5b818901915089601f8301126102f4578384fd5b813581811115610306576103066104ad565b6103138485830201610483565b8181528481019250838501865b83811015610349576103378e88843589010161010b565b85529386019390860190600101610320565b505080955050505050509295509295909350565b60008060008060008060c08789031215610375578081fd5b61037e8761018a565b955061038c60208801610176565b9450604087013567ffffffffffffffff808211156103a8578283fd5b6103b48a838b0161010b565b955060608901359150808211156103c9578283fd5b6103d58a838b0161010b565b945060808901359150808211156103ea578283fd5b6103f68a838b0161010b565b935060a089013591508082111561040b578283fd5b5061041889828a0161010b565b9150509295509295509295565b901515815260200190565b6000602080835283518082850152825b8181101561045c57858101830151858201604001528201610440565b8181111561046d5783604083870101525b50601f01601f1916929092016040019392505050565b60405181810167ffffffffffffffff811182821017156104a5576104a56104ad565b604052919050565b634e487b7160e01b600052604160045260246000fdfea2646970667358221220312f81609b1fee6bef531164039983220d4b205c80c4be42453878f50f12388d64736f6c63430008000033",
 }
 
+// CrossChainManagerABI is the input ABI used to generate the binding from.
+// Deprecated: Use CrossChainManagerMetaData.ABI instead.
+var CrossChainManagerABI = CrossChainManagerMetaData.ABI
+
+// Deprecated: Use CrossChainManagerMetaData.Sigs instead.
+// CrossChainManagerFuncSigs maps the 4-byte function signature to its string representation.
+var CrossChainManagerFuncSigs = CrossChainManagerMetaData.Sigs
+
 // CrossChainManagerBin is the compiled bytecode used for deploying new contracts.
-var CrossChainManagerBin = "0x608060405234801561001057600080fd5b506104f9806100206000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c806306fdde03146100675780631245f8d51461008557806348c79d9d146100a55780635b60b01e146100b85780638a449f03146100cb57806399d0e87a146100cb575b600080fd5b61006f6100de565b60405161007c9190610430565b60405180910390f35b6100986100933660046101c3565b6100e3565b60405161007c9190610425565b6100986100b3366004610241565b6100ec565b6100986100c636600461035d565b6100f7565b6100986100d93660046101a2565b610103565b606090565b60009392505050565b600095945050505050565b60009695505050505050565b60005b919050565b600082601f83011261011b578081fd5b813567ffffffffffffffff811115610135576101356104ad565b610148601f8201601f1916602001610483565b81815284602083860101111561015c578283fd5b816020850160208301379081016020019190915292915050565b803563ffffffff8116811461010657600080fd5b803567ffffffffffffffff8116811461010657600080fd5b6000602082840312156101b3578081fd5b6101bc8261018a565b9392505050565b6000806000604084860312156101d7578182fd5b6101e08461018a565b9250602084013567ffffffffffffffff808211156101fc578384fd5b818601915086601f83011261020f578384fd5b81358181111561021d578485fd5b87602082850101111561022e578485fd5b6020830194508093505050509250925092565b600080600080600060a08688031215610258578081fd5b6102618661018a565b945060208087013567ffffffffffffffff8082111561027e578384fd5b61028a8a838b0161010b565b9650604089013591508082111561029f578384fd5b6102ab8a838b0161010b565b955060608901359150808211156102c0578384fd5b6102cc8a838b0161010b565b945060808901359150808211156102e1578384fd5b818901915089601f8301126102f4578384fd5b813581811115610306576103066104ad565b6103138485830201610483565b8181528481019250838501865b83811015610349576103378e88843589010161010b565b85529386019390860190600101610320565b505080955050505050509295509295909350565b60008060008060008060c08789031215610375578081fd5b61037e8761018a565b955061038c60208801610176565b9450604087013567ffffffffffffffff808211156103a8578283fd5b6103b48a838b0161010b565b955060608901359150808211156103c9578283fd5b6103d58a838b0161010b565b945060808901359150808211156103ea578283fd5b6103f68a838b0161010b565b935060a089013591508082111561040b578283fd5b5061041889828a0161010b565b9150509295509295509295565b901515815260200190565b6000602080835283518082850152825b8181101561045c57858101830151858201604001528201610440565b8181111561046d5783604083870101525b50601f01601f1916929092016040019392505050565b60405181810167ffffffffffffffff811182821017156104a5576104a56104ad565b604052919050565b634e487b7160e01b600052604160045260246000fdfea2646970667358221220c033f3408bd1a4a04b8abc650d12358ccc0156efc43ce15e9930c6bef142fa6664736f6c63430008000033"
+// Deprecated: Use CrossChainManagerMetaData.Bin instead.
+var CrossChainManagerBin = CrossChainManagerMetaData.Bin
 
 // DeployCrossChainManager deploys a new Ethereum contract, binding an instance of CrossChainManager to it.
 func DeployCrossChainManager(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *CrossChainManager, error) {
-	parsed, err := abi.JSON(strings.NewReader(CrossChainManagerABI))
+	parsed, err := CrossChainManagerMetaData.GetAbi()
 	if err != nil {
 		return common.Address{}, nil, nil, err
 	}
+	if parsed == nil {
+		return common.Address{}, nil, nil, errors.New("GetABI returned nil")
+	}
 
-	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(CrossChainManagerBin), backend)
+	address, tx, contract, err := bind.DeployContract(auth, *parsed, common.FromHex(CrossChainManagerBin), backend)
 	if err != nil {
 		return common.Address{}, nil, nil, err
 	}
