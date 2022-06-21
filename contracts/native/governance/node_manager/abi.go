@@ -22,8 +22,8 @@ import (
 	"fmt"
 	"strings"
 
-	. "github.com/devfans/zion-sdk/contracts/native/go_abi/node_manager_abi"
 	"github.com/devfans/zion-sdk/contracts/native/utils"
+	"github.com/devfans/zion-sdk/contracts/native/go_abi/node_manager_abi"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 )
@@ -31,7 +31,7 @@ import (
 const contractName = "node manager"
 
 func InitABI() {
-	ab, err := abi.JSON(strings.NewReader(INodeManagerABI))
+	ab, err := abi.JSON(strings.NewReader(node_manager_abi.INodeManagerABI))
 	if err != nil {
 		panic(fmt.Sprintf("failed to load abi json string: [%v]", err))
 	}
