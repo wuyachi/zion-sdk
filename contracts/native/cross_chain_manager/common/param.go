@@ -23,6 +23,7 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/devfans/zion-sdk/contracts/native"
 	"github.com/ethereum/go-ethereum/rlp"
@@ -43,11 +44,54 @@ type InitRedeemScriptParam struct {
 	RedeemScript string
 }
 
+type CheckDoneParam struct {
+	SourceChainID uint64
+	CrossChainID  []byte
+}
+
 type EntranceParam struct {
-	SourceChainID uint64 `json:"sourceChainId"`
-	Height        uint32 `json:"key"`
-	Proof         []byte `json:"proof"`
-	Extra         []byte `json:"extra"`
+	SourceChainID uint64
+	Height        uint32
+	Proof         []byte
+	Extra         []byte
+	Signature     []byte
+}
+
+func (m *EntranceParam) EncodeRLP(w io.Writer) error {
+	return rlp.Encode(w, []interface{}{m.SourceChainID, m.Height, m.Proof, m.Extra, m.Signature})
+}
+func (m *EntranceParam) DecodeRLP(s *rlp.Stream) error {
+	var data struct {
+		SourceChainID uint64
+		Height        uint32
+		Proof         []byte
+		Extra         []byte
+		Signature     []byte
+	}
+
+	if err := s.Decode(&data); err != nil {
+		return err
+	}
+
+	m.SourceChainID, m.Height, m.Proof, m.Extra, m.Signature = data.SourceChainID, data.Height,
+		data.Proof, data.Extra, data.Signature
+	return nil
+}
+
+//Digest Digest calculate the hash of param input
+func (m *EntranceParam) Digest() ([]byte, error) {
+	input := &EntranceParam{
+		SourceChainID: m.SourceChainID,
+		Height:        m.Height,
+		Proof:         m.Proof,
+		Extra:         m.Extra,
+	}
+	msg, err := rlp.EncodeToBytes(input)
+	if err != nil {
+		return nil, fmt.Errorf("EntranceParam, serialize input error: %v", err)
+	}
+	digest := crypto.Keccak256(msg)
+	return digest, nil
 }
 
 func (this *EntranceParam) String() string {
