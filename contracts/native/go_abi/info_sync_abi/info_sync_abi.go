@@ -30,11 +30,12 @@ var (
 
 // InfoSyncMetaData contains all meta data concerning the InfoSync contract.
 var InfoSyncMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint32\",\"name\":\"height\",\"type\":\"uint32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"BlockHeight\",\"type\":\"uint256\"}],\"name\":\"SyncRootInfoEvent\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"internalType\":\"uint32\",\"name\":\"height\",\"type\":\"uint32\"}],\"name\":\"getInfo\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"}],\"name\":\"getInfoHeight\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"internalType\":\"bytes[]\",\"name\":\"rootInfos\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\"}],\"name\":\"syncRootInfo\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint32[]\",\"name\":\"heights\",\"type\":\"uint32[]\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"}],\"name\":\"ReplenishEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint32\",\"name\":\"height\",\"type\":\"uint32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"BlockHeight\",\"type\":\"uint256\"}],\"name\":\"SyncRootInfoEvent\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"internalType\":\"uint32\",\"name\":\"height\",\"type\":\"uint32\"}],\"name\":\"getInfo\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"}],\"name\":\"getInfoHeight\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"internalType\":\"uint32[]\",\"name\":\"heights\",\"type\":\"uint32[]\"}],\"name\":\"replenish\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"internalType\":\"bytes[]\",\"name\":\"rootInfos\",\"type\":\"bytes[]\"},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\"}],\"name\":\"syncRootInfo\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
 	Sigs: map[string]string{
 		"6a4a9f5e": "getInfo(uint64,uint32)",
 		"16d80012": "getInfoHeight(uint64)",
 		"06fdde03": "name()",
+		"69ce93b4": "replenish(uint64,uint32[])",
 		"1413cc01": "syncRootInfo(uint64,bytes[],bytes)",
 	},
 }
@@ -282,6 +283,27 @@ func (_InfoSync *InfoSyncCallerSession) Name() (string, error) {
 	return _InfoSync.Contract.Name(&_InfoSync.CallOpts)
 }
 
+// Replenish is a paid mutator transaction binding the contract method 0x69ce93b4.
+//
+// Solidity: function replenish(uint64 chainID, uint32[] heights) returns(bool)
+func (_InfoSync *InfoSyncTransactor) Replenish(opts *bind.TransactOpts, chainID uint64, heights []uint32) (*types.Transaction, error) {
+	return _InfoSync.contract.Transact(opts, "replenish", chainID, heights)
+}
+
+// Replenish is a paid mutator transaction binding the contract method 0x69ce93b4.
+//
+// Solidity: function replenish(uint64 chainID, uint32[] heights) returns(bool)
+func (_InfoSync *InfoSyncSession) Replenish(chainID uint64, heights []uint32) (*types.Transaction, error) {
+	return _InfoSync.Contract.Replenish(&_InfoSync.TransactOpts, chainID, heights)
+}
+
+// Replenish is a paid mutator transaction binding the contract method 0x69ce93b4.
+//
+// Solidity: function replenish(uint64 chainID, uint32[] heights) returns(bool)
+func (_InfoSync *InfoSyncTransactorSession) Replenish(chainID uint64, heights []uint32) (*types.Transaction, error) {
+	return _InfoSync.Contract.Replenish(&_InfoSync.TransactOpts, chainID, heights)
+}
+
 // SyncRootInfo is a paid mutator transaction binding the contract method 0x1413cc01.
 //
 // Solidity: function syncRootInfo(uint64 chainID, bytes[] rootInfos, bytes signature) returns(bool)
@@ -301,6 +323,141 @@ func (_InfoSync *InfoSyncSession) SyncRootInfo(chainID uint64, rootInfos [][]byt
 // Solidity: function syncRootInfo(uint64 chainID, bytes[] rootInfos, bytes signature) returns(bool)
 func (_InfoSync *InfoSyncTransactorSession) SyncRootInfo(chainID uint64, rootInfos [][]byte, signature []byte) (*types.Transaction, error) {
 	return _InfoSync.Contract.SyncRootInfo(&_InfoSync.TransactOpts, chainID, rootInfos, signature)
+}
+
+// InfoSyncReplenishEventIterator is returned from FilterReplenishEvent and is used to iterate over the raw logs and unpacked data for ReplenishEvent events raised by the InfoSync contract.
+type InfoSyncReplenishEventIterator struct {
+	Event *InfoSyncReplenishEvent // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *InfoSyncReplenishEventIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(InfoSyncReplenishEvent)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(InfoSyncReplenishEvent)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *InfoSyncReplenishEventIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *InfoSyncReplenishEventIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// InfoSyncReplenishEvent represents a ReplenishEvent event raised by the InfoSync contract.
+type InfoSyncReplenishEvent struct {
+	Heights []uint32
+	ChainID uint64
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterReplenishEvent is a free log retrieval operation binding the contract event 0x21af63b15a3c411234e8b1e975c9a0ea23ac5f43bca2f0a451042297560cd973.
+//
+// Solidity: event ReplenishEvent(uint32[] heights, uint64 chainID)
+func (_InfoSync *InfoSyncFilterer) FilterReplenishEvent(opts *bind.FilterOpts) (*InfoSyncReplenishEventIterator, error) {
+
+	logs, sub, err := _InfoSync.contract.FilterLogs(opts, "ReplenishEvent")
+	if err != nil {
+		return nil, err
+	}
+	return &InfoSyncReplenishEventIterator{contract: _InfoSync.contract, event: "ReplenishEvent", logs: logs, sub: sub}, nil
+}
+
+// WatchReplenishEvent is a free log subscription operation binding the contract event 0x21af63b15a3c411234e8b1e975c9a0ea23ac5f43bca2f0a451042297560cd973.
+//
+// Solidity: event ReplenishEvent(uint32[] heights, uint64 chainID)
+func (_InfoSync *InfoSyncFilterer) WatchReplenishEvent(opts *bind.WatchOpts, sink chan<- *InfoSyncReplenishEvent) (event.Subscription, error) {
+
+	logs, sub, err := _InfoSync.contract.WatchLogs(opts, "ReplenishEvent")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(InfoSyncReplenishEvent)
+				if err := _InfoSync.contract.UnpackLog(event, "ReplenishEvent", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseReplenishEvent is a log parse operation binding the contract event 0x21af63b15a3c411234e8b1e975c9a0ea23ac5f43bca2f0a451042297560cd973.
+//
+// Solidity: event ReplenishEvent(uint32[] heights, uint64 chainID)
+func (_InfoSync *InfoSyncFilterer) ParseReplenishEvent(log types.Log) (*InfoSyncReplenishEvent, error) {
+	event := new(InfoSyncReplenishEvent)
+	if err := _InfoSync.contract.UnpackLog(event, "ReplenishEvent", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
 }
 
 // InfoSyncSyncRootInfoEventIterator is returned from FilterSyncRootInfoEvent and is used to iterate over the raw logs and unpacked data for SyncRootInfoEvent events raised by the InfoSync contract.

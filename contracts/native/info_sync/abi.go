@@ -16,28 +16,43 @@
  * along with The Zion.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package common
+package info_sync
 
 import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rlp"
 	"io"
+	"strings"
 
-	"github.com/devfans/zion-sdk/contracts/native"
+	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/devfans/zion-sdk/contracts/native/go_abi/info_sync_abi"
 )
 
-const (
-	//key prefix
-	ROOT_INFO            = "rootInfo"
-	CURRENT_HEIGHT       = "currentHeight"
-	SYNC_ROOT_INFO_EVENT = "SyncRootInfoEvent"
-)
+
+
+var GasTable = map[string]uint64{
+}
+
+func GetABI() *abi.ABI {
+	ab, err := abi.JSON(strings.NewReader(info_sync_abi.InfoSyncABI))
+	if err != nil {
+		panic(fmt.Sprintf("failed to load abi json string: [%v]", err))
+	}
+	return &ab
+}
+
+var ABI *abi.ABI
 
 type GetInfoParam struct {
 	ChainID uint64
 	Height  uint32
 }
+
+type GetInfoOutput struct {
+	Info []byte
+}
+
 
 type GetInfoHeightParam struct {
 	ChainID uint64
@@ -81,31 +96,7 @@ func (m *SyncRootInfoParam) Digest() ([]byte, error) {
 	return digest, nil
 }
 
-type RootInfo struct {
-	Height uint32
-	Info   []byte
-}
-
-func (m *RootInfo) EncodeRLP(w io.Writer) error {
-	return rlp.Encode(w, []interface{}{m.Height, m.Info})
-}
-func (m *RootInfo) DecodeRLP(s *rlp.Stream) error {
-	var data struct {
-		Height uint32
-		Info   []byte
-	}
-
-	if err := s.Decode(&data); err != nil {
-		return err
-	}
-
-	m.Height, m.Info = data.Height, data.Info
-	return nil
-}
-
-func NotifyPutRootInfo(native *native.NativeContract, chainID uint64, height uint32) {
-	err := native.AddNotify(ABI, []string{SYNC_ROOT_INFO_EVENT}, chainID, height, native.ContractRef().BlockHeight())
-	if err != nil {
-		panic(fmt.Sprintf("NotifyPutRootInfo failed: %v", err))
-	}
+type ReplenishParam struct {
+	ChainID  uint64
+	Heights  []uint32
 }

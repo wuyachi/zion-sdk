@@ -18,55 +18,8 @@
 package common
 
 import (
-	"fmt"
-	"math/big"
-	"strings"
-
-	"github.com/ethereum/go-ethereum/common"
-	zcom "github.com/devfans/zion-sdk/common"
-	"github.com/devfans/zion-sdk/contracts/native"
-	"github.com/devfans/zion-sdk/contracts/native/utils"
+	"errors"
 )
 
-func Replace0x(s string) string {
-	return strings.Replace(strings.ToLower(s), "0x", "", 1)
-}
+var ErrTxAlreadyImported = errors.New("tx already imported")
 
-func PutDoneTx(native *native.NativeContract, crossChainID []byte, chainID uint64) error {
-	native.GetCacheDB().Put(doneTxKey(chainID, crossChainID), crossChainID)
-	return nil
-}
-
-func CheckDoneTx(native *native.NativeContract, crossChainID []byte, chainID uint64) error {
-	value, err := native.GetCacheDB().Get(doneTxKey(chainID, crossChainID))
-	if err != nil {
-		return fmt.Errorf("checkDoneTx, native.GetCacheDB().Get error: %v", err)
-	}
-	if value != nil {
-		return fmt.Errorf("checkDoneTx, tx already done")
-	}
-	return nil
-}
-
-func NotifyMakeProof(native *native.NativeContract, merkleValueHex string, key string) error {
-	return native.AddNotify(ABI, []string{NOTIFY_MAKE_PROOF_EVENT}, merkleValueHex, native.ContractRef().BlockHeight().Uint64(), key)
-}
-
-func Uint256ToBytes(num *big.Int) []byte {
-	if num == nil {
-		return zcom.EmptyHash[:]
-	}
-	return common.LeftPadBytes(num.Bytes(), 32)
-}
-
-func BytesToUint256(data []byte) *big.Int {
-	if data == nil || len(data) == 0 {
-		return common.Big0
-	}
-	return new(big.Int).SetBytes(common.TrimLeftZeroes(data))
-}
-
-func doneTxKey(chainID uint64, crossChainID []byte) []byte {
-	contract := utils.CrossChainManagerContractAddress
-	return utils.ConcatKey(contract, []byte(DONE_TX), utils.GetUint64Bytes(chainID), crossChainID)
-}

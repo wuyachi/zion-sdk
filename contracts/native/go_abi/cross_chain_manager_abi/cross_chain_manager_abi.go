@@ -30,7 +30,7 @@ var (
 
 // CrossChainManagerMetaData contains all meta data concerning the CrossChainManager contract.
 var CrossChainManagerMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"TxHash\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"MultiSign\",\"type\":\"bytes\"}],\"name\":\"btcTxMultiSignEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"FromChainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"buf\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"FromTxHash\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"RedeemKey\",\"type\":\"string\"}],\"name\":\"btcTxToRelayEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"rk\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"buf\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64[]\",\"name\":\"amts\",\"type\":\"uint64[]\"}],\"name\":\"makeBtcTxEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"merkleValueHex\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"BlockHeight\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"key\",\"type\":\"string\"}],\"name\":\"makeProof\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"}],\"name\":\"BlackChain\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"internalType\":\"string\",\"name\":\"RedeemKey\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"TxHash\",\"type\":\"bytes\"},{\"internalType\":\"string\",\"name\":\"Address\",\"type\":\"string\"},{\"internalType\":\"bytes[]\",\"name\":\"Signs\",\"type\":\"bytes[]\"}],\"name\":\"MultiSign\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"}],\"name\":\"WhiteChain\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"crossChainID\",\"type\":\"bytes\"}],\"name\":\"checkDone\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"SourceChainID\",\"type\":\"uint64\"},{\"internalType\":\"uint32\",\"name\":\"Height\",\"type\":\"uint32\"},{\"internalType\":\"bytes\",\"name\":\"Proof\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"Extra\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"Signature\",\"type\":\"bytes\"}],\"name\":\"importOuterTransfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"Name\",\"type\":\"string\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string[]\",\"name\":\"txHashes\",\"type\":\"string[]\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"}],\"name\":\"ReplenishEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"TxHash\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"MultiSign\",\"type\":\"bytes\"}],\"name\":\"btcTxMultiSignEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"FromChainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"buf\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"FromTxHash\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"RedeemKey\",\"type\":\"string\"}],\"name\":\"btcTxToRelayEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"rk\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"buf\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64[]\",\"name\":\"amts\",\"type\":\"uint64[]\"}],\"name\":\"makeBtcTxEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"merkleValueHex\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"BlockHeight\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"key\",\"type\":\"string\"}],\"name\":\"makeProof\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"}],\"name\":\"BlackChain\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"},{\"internalType\":\"string\",\"name\":\"RedeemKey\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"TxHash\",\"type\":\"bytes\"},{\"internalType\":\"string\",\"name\":\"Address\",\"type\":\"string\"},{\"internalType\":\"bytes[]\",\"name\":\"Signs\",\"type\":\"bytes[]\"}],\"name\":\"MultiSign\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"ChainID\",\"type\":\"uint64\"}],\"name\":\"WhiteChain\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"crossChainID\",\"type\":\"bytes\"}],\"name\":\"checkDone\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"SourceChainID\",\"type\":\"uint64\"},{\"internalType\":\"uint32\",\"name\":\"Height\",\"type\":\"uint32\"},{\"internalType\":\"bytes\",\"name\":\"Proof\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"Extra\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"Signature\",\"type\":\"bytes\"}],\"name\":\"importOuterTransfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"Name\",\"type\":\"string\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"chainID\",\"type\":\"uint64\"},{\"internalType\":\"string[]\",\"name\":\"txHashes\",\"type\":\"string[]\"}],\"name\":\"replenish\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
 	Sigs: map[string]string{
 		"8a449f03": "BlackChain(uint64)",
 		"48c79d9d": "MultiSign(uint64,string,bytes,string,bytes[])",
@@ -38,8 +38,9 @@ var CrossChainManagerMetaData = &bind.MetaData{
 		"1245f8d5": "checkDone(uint64,bytes)",
 		"bbc2a76a": "importOuterTransfer(uint64,uint32,bytes,bytes,bytes)",
 		"06fdde03": "name()",
+		"f8bac498": "replenish(uint64,string[])",
 	},
-	Bin: "0x608060405234801561001057600080fd5b50610489806100206000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c806306fdde03146100675780631245f8d51461008557806348c79d9d146100a55780638a449f03146100b857806399d0e87a146100b8578063bbc2a76a146100cb575b600080fd5b61006f6100d9565b60405161007c91906103c0565b60405180910390f35b61009861009336600461019d565b6100de565b60405161007c91906103b5565b6100986100b33660046101e9565b6100e6565b6100986100c636600461017c565b6100f1565b6100986100b3366004610305565b606090565b600092915050565b600095945050505050565b60005b919050565b600082601f830112610109578081fd5b813567ffffffffffffffff8111156101235761012361043d565b610136601f8201601f1916602001610413565b81815284602083860101111561014a578283fd5b816020850160208301379081016020019190915292915050565b803567ffffffffffffffff811681146100f457600080fd5b60006020828403121561018d578081fd5b61019682610164565b9392505050565b600080604083850312156101af578081fd5b6101b883610164565b9150602083013567ffffffffffffffff8111156101d3578182fd5b6101df858286016100f9565b9150509250929050565b600080600080600060a08688031215610200578081fd5b61020986610164565b945060208087013567ffffffffffffffff80821115610226578384fd5b6102328a838b016100f9565b96506040890135915080821115610247578384fd5b6102538a838b016100f9565b95506060890135915080821115610268578384fd5b6102748a838b016100f9565b94506080890135915080821115610289578384fd5b818901915089601f83011261029c578384fd5b8135818111156102ae576102ae61043d565b6102bb8485830201610413565b8181528481019250838501865b838110156102f1576102df8e8884358901016100f9565b855293860193908601906001016102c8565b505080955050505050509295509295909350565b600080600080600060a0868803121561031c578081fd5b61032586610164565b9450602086013563ffffffff8116811461033d578182fd5b9350604086013567ffffffffffffffff80821115610359578283fd5b61036589838a016100f9565b9450606088013591508082111561037a578283fd5b61038689838a016100f9565b9350608088013591508082111561039b578283fd5b506103a8888289016100f9565b9150509295509295909350565b901515815260200190565b6000602080835283518082850152825b818110156103ec578581018301518582016040015282016103d0565b818111156103fd5783604083870101525b50601f01601f1916929092016040019392505050565b60405181810167ffffffffffffffff811182821017156104355761043561043d565b604052919050565b634e487b7160e01b600052604160045260246000fdfea264697066735822122001c3e7b64354bef925469f3e1f3e46941874d9266854282a784049ece36f003a64736f6c63430008000033",
+	Bin: "0x608060405234801561001057600080fd5b50610540806100206000396000f3fe608060405234801561001057600080fd5b506004361061007d5760003560e01c80638a449f031161005b5780638a449f03146100d357806399d0e87a146100d3578063bbc2a76a146100e6578063f8bac498146100f45761007d565b806306fdde03146100825780631245f8d5146100a057806348c79d9d146100c0575b600080fd5b61008a610107565b6040516100979190610477565b60405180910390f35b6100b36100ae366004610254565b61010c565b604051610097919061046c565b6100b36100ce3660046102a0565b610114565b6100b36100e13660046101b3565b61011f565b6100b36100ce3660046103bc565b6100b36101023660046101d4565b610127565b606090565b600092915050565b600095945050505050565b60005b919050565b60009392505050565b600082601f830112610140578081fd5b813567ffffffffffffffff81111561015a5761015a6104f4565b61016d601f8201601f19166020016104ca565b818152846020838601011115610181578283fd5b816020850160208301379081016020019190915292915050565b803567ffffffffffffffff8116811461012257600080fd5b6000602082840312156101c4578081fd5b6101cd8261019b565b9392505050565b6000806000604084860312156101e8578182fd5b6101f18461019b565b9250602084013567ffffffffffffffff8082111561020d578384fd5b818601915086601f830112610220578384fd5b81358181111561022e578485fd5b8760208083028501011115610241578485fd5b6020830194508093505050509250925092565b60008060408385031215610266578182fd5b61026f8361019b565b9150602083013567ffffffffffffffff81111561028a578182fd5b61029685828601610130565b9150509250929050565b600080600080600060a086880312156102b7578081fd5b6102c08661019b565b945060208087013567ffffffffffffffff808211156102dd578384fd5b6102e98a838b01610130565b965060408901359150808211156102fe578384fd5b61030a8a838b01610130565b9550606089013591508082111561031f578384fd5b61032b8a838b01610130565b94506080890135915080821115610340578384fd5b818901915089601f830112610353578384fd5b813581811115610365576103656104f4565b61037284858302016104ca565b8181528481019250838501865b838110156103a8576103968e888435890101610130565b8552938601939086019060010161037f565b505080955050505050509295509295909350565b600080600080600060a086880312156103d3578081fd5b6103dc8661019b565b9450602086013563ffffffff811681146103f4578182fd5b9350604086013567ffffffffffffffff80821115610410578283fd5b61041c89838a01610130565b94506060880135915080821115610431578283fd5b61043d89838a01610130565b93506080880135915080821115610452578283fd5b5061045f88828901610130565b9150509295509295909350565b901515815260200190565b6000602080835283518082850152825b818110156104a357858101830151858201604001528201610487565b818111156104b45783604083870101525b50601f01601f1916929092016040019392505050565b60405181810167ffffffffffffffff811182821017156104ec576104ec6104f4565b604052919050565b634e487b7160e01b600052604160045260246000fdfea2646970667358221220d6be45f893ec188a13c5dfa7d370d6f46c369e4b406aaae431e8c21ef12c6a3064736f6c63430008000033",
 }
 
 // CrossChainManagerABI is the input ABI used to generate the binding from.
@@ -347,6 +348,162 @@ func (_CrossChainManager *CrossChainManagerSession) Name() (*types.Transaction, 
 // Solidity: function name() returns(string Name)
 func (_CrossChainManager *CrossChainManagerTransactorSession) Name() (*types.Transaction, error) {
 	return _CrossChainManager.Contract.Name(&_CrossChainManager.TransactOpts)
+}
+
+// Replenish is a paid mutator transaction binding the contract method 0xf8bac498.
+//
+// Solidity: function replenish(uint64 chainID, string[] txHashes) returns(bool success)
+func (_CrossChainManager *CrossChainManagerTransactor) Replenish(opts *bind.TransactOpts, chainID uint64, txHashes []string) (*types.Transaction, error) {
+	return _CrossChainManager.contract.Transact(opts, "replenish", chainID, txHashes)
+}
+
+// Replenish is a paid mutator transaction binding the contract method 0xf8bac498.
+//
+// Solidity: function replenish(uint64 chainID, string[] txHashes) returns(bool success)
+func (_CrossChainManager *CrossChainManagerSession) Replenish(chainID uint64, txHashes []string) (*types.Transaction, error) {
+	return _CrossChainManager.Contract.Replenish(&_CrossChainManager.TransactOpts, chainID, txHashes)
+}
+
+// Replenish is a paid mutator transaction binding the contract method 0xf8bac498.
+//
+// Solidity: function replenish(uint64 chainID, string[] txHashes) returns(bool success)
+func (_CrossChainManager *CrossChainManagerTransactorSession) Replenish(chainID uint64, txHashes []string) (*types.Transaction, error) {
+	return _CrossChainManager.Contract.Replenish(&_CrossChainManager.TransactOpts, chainID, txHashes)
+}
+
+// CrossChainManagerReplenishEventIterator is returned from FilterReplenishEvent and is used to iterate over the raw logs and unpacked data for ReplenishEvent events raised by the CrossChainManager contract.
+type CrossChainManagerReplenishEventIterator struct {
+	Event *CrossChainManagerReplenishEvent // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *CrossChainManagerReplenishEventIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(CrossChainManagerReplenishEvent)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(CrossChainManagerReplenishEvent)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *CrossChainManagerReplenishEventIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *CrossChainManagerReplenishEventIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// CrossChainManagerReplenishEvent represents a ReplenishEvent event raised by the CrossChainManager contract.
+type CrossChainManagerReplenishEvent struct {
+	TxHashes []string
+	ChainID  uint64
+	Raw      types.Log // Blockchain specific contextual infos
+}
+
+// FilterReplenishEvent is a free log retrieval operation binding the contract event 0xac3e52c0a7de47fbd0f9a52b8f205485cd725235d94d678f638e16d02404fb38.
+//
+// Solidity: event ReplenishEvent(string[] txHashes, uint64 chainID)
+func (_CrossChainManager *CrossChainManagerFilterer) FilterReplenishEvent(opts *bind.FilterOpts) (*CrossChainManagerReplenishEventIterator, error) {
+
+	logs, sub, err := _CrossChainManager.contract.FilterLogs(opts, "ReplenishEvent")
+	if err != nil {
+		return nil, err
+	}
+	return &CrossChainManagerReplenishEventIterator{contract: _CrossChainManager.contract, event: "ReplenishEvent", logs: logs, sub: sub}, nil
+}
+
+// WatchReplenishEvent is a free log subscription operation binding the contract event 0xac3e52c0a7de47fbd0f9a52b8f205485cd725235d94d678f638e16d02404fb38.
+//
+// Solidity: event ReplenishEvent(string[] txHashes, uint64 chainID)
+func (_CrossChainManager *CrossChainManagerFilterer) WatchReplenishEvent(opts *bind.WatchOpts, sink chan<- *CrossChainManagerReplenishEvent) (event.Subscription, error) {
+
+	logs, sub, err := _CrossChainManager.contract.WatchLogs(opts, "ReplenishEvent")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(CrossChainManagerReplenishEvent)
+				if err := _CrossChainManager.contract.UnpackLog(event, "ReplenishEvent", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseReplenishEvent is a log parse operation binding the contract event 0xac3e52c0a7de47fbd0f9a52b8f205485cd725235d94d678f638e16d02404fb38.
+//
+// Solidity: event ReplenishEvent(string[] txHashes, uint64 chainID)
+func (_CrossChainManager *CrossChainManagerFilterer) ParseReplenishEvent(log types.Log) (*CrossChainManagerReplenishEvent, error) {
+	event := new(CrossChainManagerReplenishEvent)
+	if err := _CrossChainManager.contract.UnpackLog(event, "ReplenishEvent", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
 }
 
 // CrossChainManagerBtcTxMultiSignEventIterator is returned from FilterBtcTxMultiSignEvent and is used to iterate over the raw logs and unpacked data for BtcTxMultiSignEvent events raised by the CrossChainManager contract.
