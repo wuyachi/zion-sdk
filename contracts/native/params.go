@@ -18,8 +18,8 @@
 package native
 
 import (
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/devfans/zion-sdk/contracts/native/utils"
+	"github.com/ethereum/go-ethereum/common"
 )
 
 // FailedTxGasUsage tx's gas usage should not be greater than an minimum fixed value if it execute failed.
@@ -27,12 +27,14 @@ const FailedTxGasUsage = uint64(100)
 
 const (
 	NativeGovernance         = "governance"
+	NativeEconomic           = "economic"
 	NativeSyncCrossChainInfo = "sync_cross_chain_info"
 	NativeCrossChain         = "cross_chain"
 	NativeNeo3StateManager   = "neo3_state_manager"
 	NativeNodeManager        = "node_manager"
 	NativeRelayerManager     = "relayer_manager"
 	NativeSideChainManager   = "side_chain_manager"
+	NativeSignatureManager   = "signature_manage"
 
 	// native backup contracts
 	NativeExtra4  = "extra4"
@@ -55,12 +57,14 @@ const (
 
 var NativeContractAddrMap = map[string]common.Address{
 	NativeGovernance:         utils.GovernanceContractAddress,
+	NativeEconomic:           utils.EconomicContractAddress,
 	NativeSyncCrossChainInfo: utils.InfoSyncContractAddress,
 	NativeCrossChain:         utils.CrossChainManagerContractAddress,
 	NativeNeo3StateManager:   utils.Neo3StateManagerContractAddress,
 	NativeNodeManager:        utils.NodeManagerContractAddress,
 	NativeRelayerManager:     utils.RelayerManagerContractAddress,
 	NativeSideChainManager:   utils.SideChainManagerContractAddress,
+	NativeSignatureManager:   utils.SignatureManagerContractAddress,
 	NativeExtra4:             common.HexToAddress("0x7d79D936DA7833c7fe056eB450064f34A327DcA8"),
 	NativeExtra5:             common.HexToAddress("0xD37F626c9E007DdD244E5Cbee0C223fec6D11289"),
 	NativeExtra6:             common.HexToAddress("0x33463b771Da32D450723C7C23a2240dE223b53bd"),
