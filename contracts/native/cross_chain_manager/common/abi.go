@@ -25,8 +25,8 @@ import (
 	"io"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/devfans/zion-sdk/contracts/native/go_abi/cross_chain_manager_abi"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 )
 
 var ABI *abi.ABI
@@ -36,7 +36,7 @@ func init() {
 }
 
 func GetABI() *abi.ABI {
-	ab, err := abi.JSON(strings.NewReader(cross_chain_manager_abi.CrossChainManagerABI))
+	ab, err := abi.JSON(strings.NewReader(cross_chain_manager_abi.ICrossChainManagerABI))
 	if err != nil {
 		panic(fmt.Sprintf("failed to load abi json string: [%v]", err))
 	}
@@ -119,4 +119,3 @@ type ReplenishParam struct {
 	ChainID  uint64
 	TxHashes []string
 }
-

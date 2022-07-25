@@ -25,17 +25,14 @@ import (
 	"io"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/devfans/zion-sdk/contracts/native/go_abi/info_sync_abi"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 )
 
-
-
-var GasTable = map[string]uint64{
-}
+var GasTable = map[string]uint64{}
 
 func GetABI() *abi.ABI {
-	ab, err := abi.JSON(strings.NewReader(info_sync_abi.InfoSyncABI))
+	ab, err := abi.JSON(strings.NewReader(info_sync_abi.IInfoSyncABI))
 	if err != nil {
 		panic(fmt.Sprintf("failed to load abi json string: [%v]", err))
 	}
@@ -52,7 +49,6 @@ type GetInfoParam struct {
 type GetInfoOutput struct {
 	Info []byte
 }
-
 
 type GetInfoHeightParam struct {
 	ChainID uint64
@@ -97,6 +93,6 @@ func (m *SyncRootInfoParam) Digest() ([]byte, error) {
 }
 
 type ReplenishParam struct {
-	ChainID  uint64
-	Heights  []uint32
+	ChainID uint64
+	Heights []uint32
 }
