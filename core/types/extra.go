@@ -17,12 +17,15 @@
 package types
 
 import (
+	"bytes"
 	"errors"
+	"fmt"
+	"github.com/ethereum/go-ethereum/core/types"
 	"io"
 
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/ethereum/go-ethereum/core/types"
 )
 
 var (
@@ -38,15 +41,17 @@ var (
 )
 
 type HotstuffExtra struct {
-	Validators    []common.Address // consensus participants address
+	Height        uint64           // denote the epoch start height
+	Validators    []common.Address // consensus participants address for next epoch, and in the first block, it contains all genesis validators. keep empty if no epoch change.
 	Seal          []byte           // proposer signature
-	CommittedSeal [][]byte         // consensus participants signatures
-	Salt          []byte           // epoch id and consensus round
+	CommittedSeal [][]byte         // consensus participants signatures and it's size should be greater than 2/3 of validators
+	Salt          []byte           // omit empty
 }
 
 // EncodeRLP serializes ist into the Ethereum RLP format.
 func (ist *HotstuffExtra) EncodeRLP(w io.Writer) error {
 	return rlp.Encode(w, []interface{}{
+		ist.Height,
 		ist.Validators,
 		ist.Seal,
 		ist.CommittedSeal,
@@ -57,6 +62,7 @@ func (ist *HotstuffExtra) EncodeRLP(w io.Writer) error {
 // DecodeRLP implements rlp.Decoder, and load the istanbul fields from a RLP stream.
 func (ist *HotstuffExtra) DecodeRLP(s *rlp.Stream) error {
 	var extra struct {
+		Height        uint64
 		Validators    []common.Address
 		Seal          []byte
 		CommittedSeal [][]byte
@@ -65,14 +71,26 @@ func (ist *HotstuffExtra) DecodeRLP(s *rlp.Stream) error {
 	if err := s.Decode(&extra); err != nil {
 		return err
 	}
-	ist.Validators, ist.Seal, ist.CommittedSeal, ist.Salt = extra.Validators, extra.Seal, extra.CommittedSeal, extra.Salt
+	ist.Height, ist.Validators, ist.Seal, ist.CommittedSeal, ist.Salt = extra.Height, extra.Validators, extra.Seal, extra.CommittedSeal, extra.Salt
 	return nil
+}
+
+// Dump only used for debug or test
+func (ist *HotstuffExtra) Dump() string {
+	seals := []string{}
+	for _, v := range ist.CommittedSeal {
+		seals = append(seals, hexutil.Encode(v))
+	}
+	return fmt.Sprintf("{EpochStartHeight: %v, Validators: %v, Seal: %s, CommittedSeal: %v}", ist.Height, ist.Validators, hexutil.Encode(ist.Seal), seals)
 }
 
 // ExtractHotstuffExtra extracts all values of the HotstuffExtra from the header. It returns an
 // error if the length of the given extra-data is less than 32 bytes or the extra-data can not
 // be decoded.
 func ExtractHotstuffExtra(h *types.Header) (*HotstuffExtra, error) {
+	if h == nil || h.Extra == nil {
+		return nil, fmt.Errorf("invalid header")
+	}
 	return ExtractHotstuffExtraPayload(h.Extra)
 }
 
@@ -92,18 +110,16 @@ func ExtractHotstuffExtraPayload(extra []byte) (*HotstuffExtra, error) {
 // HotstuffFilteredHeader returns a filtered header which some information (like seal, committed seals)
 // are clean to fulfill the Istanbul hash rules. It returns nil if the extra-data cannot be
 // decoded/encoded by rlp.
-func HotstuffFilteredHeader(h *types.Header, keepSeal bool) *types.Header {
+func HotstuffFilteredHeader(h *types.Header) *types.Header {
 	newHeader := types.CopyHeader(h)
 	extra, err := ExtractHotstuffExtra(newHeader)
 	if err != nil {
 		return nil
 	}
 
-	if !keepSeal {
-		extra.Seal = []byte{}
-	}
+	// fields of `seal` and `committedSeal` related with consensus voting and DON't participants in hash generating
+	extra.Seal = []byte{}
 	extra.CommittedSeal = [][]byte{}
-	//extra.Salt = []byte{}
 
 	payload, err := rlp.EncodeToBytes(&extra)
 	if err != nil {
@@ -113,4 +129,32 @@ func HotstuffFilteredHeader(h *types.Header, keepSeal bool) *types.Header {
 	newHeader.Extra = append(newHeader.Extra[:HotstuffExtraVanity], payload...)
 
 	return newHeader
+}
+
+func HotstuffHeaderFillWithValidators(header *types.Header, vals []common.Address, epochStartHeight uint64) error {
+	var buf bytes.Buffer
+
+	// compensate the lack bytes if header.Extra is not enough IstanbulExtraVanity bytes.
+	if len(header.Extra) < HotstuffExtraVanity {
+		header.Extra = append(header.Extra, bytes.Repeat([]byte{0x00}, HotstuffExtraVanity-len(header.Extra))...)
+	}
+	buf.Write(header.Extra[:HotstuffExtraVanity])
+
+	if vals == nil {
+		vals = []common.Address{}
+	}
+	ist := &HotstuffExtra{
+		Height:        epochStartHeight,
+		Validators:    vals,
+		Seal:          []byte{},
+		CommittedSeal: [][]byte{},
+		Salt:          []byte{},
+	}
+
+	payload, err := rlp.EncodeToBytes(&ist)
+	if err != nil {
+		return err
+	}
+	header.Extra = append(buf.Bytes(), payload...)
+	return nil
 }
