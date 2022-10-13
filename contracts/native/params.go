@@ -56,7 +56,7 @@ const (
 )
 
 var NativeContractAddrMap = map[string]common.Address{
-	NativeGovernance:         utils.GovernanceContractAddress,
+	NativeGovernance:         utils.ProposalManagerContractAddress,
 	NativeEconomic:           utils.EconomicContractAddress,
 	NativeSyncCrossChainInfo: utils.InfoSyncContractAddress,
 	NativeCrossChain:         utils.CrossChainManagerContractAddress,
