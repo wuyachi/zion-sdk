@@ -41,7 +41,8 @@ var (
 )
 
 type HotstuffExtra struct {
-	Height        uint64           // denote the epoch start height
+	StartHeight   uint64           // denote the epoch start height
+	EndHeight     uint64           // the epoch end height
 	Validators    []common.Address // consensus participants address for next epoch, and in the first block, it contains all genesis validators. keep empty if no epoch change.
 	Seal          []byte           // proposer signature
 	CommittedSeal [][]byte         // consensus participants signatures and it's size should be greater than 2/3 of validators
@@ -51,7 +52,8 @@ type HotstuffExtra struct {
 // EncodeRLP serializes ist into the Ethereum RLP format.
 func (ist *HotstuffExtra) EncodeRLP(w io.Writer) error {
 	return rlp.Encode(w, []interface{}{
-		ist.Height,
+		ist.StartHeight,
+		ist.EndHeight,
 		ist.Validators,
 		ist.Seal,
 		ist.CommittedSeal,
@@ -63,6 +65,7 @@ func (ist *HotstuffExtra) EncodeRLP(w io.Writer) error {
 func (ist *HotstuffExtra) DecodeRLP(s *rlp.Stream) error {
 	var extra struct {
 		Height        uint64
+		EndHeight     uint64
 		Validators    []common.Address
 		Seal          []byte
 		CommittedSeal [][]byte
@@ -71,7 +74,7 @@ func (ist *HotstuffExtra) DecodeRLP(s *rlp.Stream) error {
 	if err := s.Decode(&extra); err != nil {
 		return err
 	}
-	ist.Height, ist.Validators, ist.Seal, ist.CommittedSeal, ist.Salt = extra.Height, extra.Validators, extra.Seal, extra.CommittedSeal, extra.Salt
+	ist.StartHeight, ist.Validators, ist.Seal, ist.CommittedSeal, ist.Salt = extra.Height, extra.Validators, extra.Seal, extra.CommittedSeal, extra.Salt
 	return nil
 }
 
@@ -81,7 +84,7 @@ func (ist *HotstuffExtra) Dump() string {
 	for _, v := range ist.CommittedSeal {
 		seals = append(seals, hexutil.Encode(v))
 	}
-	return fmt.Sprintf("{EpochStartHeight: %v, Validators: %v, Seal: %s, CommittedSeal: %v}", ist.Height, ist.Validators, hexutil.Encode(ist.Seal), seals)
+	return fmt.Sprintf("{StartHeight: %v, EndHeight: %v, Validators: %v}", ist.StartHeight, ist.EndHeight, ist.Validators)
 }
 
 // ExtractHotstuffExtra extracts all values of the HotstuffExtra from the header. It returns an
@@ -131,7 +134,7 @@ func HotstuffFilteredHeader(h *types.Header) *types.Header {
 	return newHeader
 }
 
-func HotstuffHeaderFillWithValidators(header *types.Header, vals []common.Address, epochStartHeight uint64) error {
+func HotstuffHeaderFillWithValidators(header *types.Header, vals []common.Address, epochStartHeight uint64, epochEndHeight uint64) error {
 	var buf bytes.Buffer
 
 	// compensate the lack bytes if header.Extra is not enough IstanbulExtraVanity bytes.
@@ -144,7 +147,8 @@ func HotstuffHeaderFillWithValidators(header *types.Header, vals []common.Addres
 		vals = []common.Address{}
 	}
 	ist := &HotstuffExtra{
-		Height:        epochStartHeight,
+		StartHeight:   epochStartHeight,
+		EndHeight:     epochEndHeight,
 		Validators:    vals,
 		Seal:          []byte{},
 		CommittedSeal: [][]byte{},
