@@ -20,11 +20,9 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/ethereum/go-ethereum/core/types"
-	"io"
-
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/rlp"
 )
 
@@ -47,35 +45,6 @@ type HotstuffExtra struct {
 	Seal          []byte           // proposer signature
 	CommittedSeal [][]byte         // consensus participants signatures and it's size should be greater than 2/3 of validators
 	Salt          []byte           // omit empty
-}
-
-// EncodeRLP serializes ist into the Ethereum RLP format.
-func (ist *HotstuffExtra) EncodeRLP(w io.Writer) error {
-	return rlp.Encode(w, []interface{}{
-		ist.StartHeight,
-		ist.EndHeight,
-		ist.Validators,
-		ist.Seal,
-		ist.CommittedSeal,
-		ist.Salt,
-	})
-}
-
-// DecodeRLP implements rlp.Decoder, and load the istanbul fields from a RLP stream.
-func (ist *HotstuffExtra) DecodeRLP(s *rlp.Stream) error {
-	var extra struct {
-		Height        uint64
-		EndHeight     uint64
-		Validators    []common.Address
-		Seal          []byte
-		CommittedSeal [][]byte
-		Salt          []byte
-	}
-	if err := s.Decode(&extra); err != nil {
-		return err
-	}
-	ist.StartHeight, ist.Validators, ist.Seal, ist.CommittedSeal, ist.Salt = extra.Height, extra.Validators, extra.Seal, extra.CommittedSeal, extra.Salt
-	return nil
 }
 
 // Dump only used for debug or test
