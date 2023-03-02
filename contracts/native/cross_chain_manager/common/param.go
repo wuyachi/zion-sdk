@@ -21,8 +21,8 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/devfans/zion-sdk/contracts/native"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/rlp"
 )
 
@@ -201,4 +201,45 @@ func (tx *TxArgs) DecodeRLP(s *rlp.Stream) error {
 	}
 	tx.ToAssetHash, tx.ToAddress, tx.Amount = data.ToAssetHash, data.ToAddress, data.Amount
 	return nil
+}
+
+type RippleTxArgs struct {
+	ToAddress []byte
+	Amount    *big.Int
+}
+
+func DecodeRippleTxArgs(data []byte) (param *RippleTxArgs, err error) {
+	BytesTy, _ := abi.NewType("bytes", "", nil)
+	IntTy, _ := abi.NewType("int", "", nil)
+	// StringTy, _ := abi.NewType("string", "", nil)
+
+	Args := abi.Arguments{
+		{Type: BytesTy, Name: "toAddress"},
+		{Type: IntTy, Name: "amount"},
+	}
+
+	args, err := Args.Unpack(data)
+	if err != nil {
+		return
+	}
+
+	param = new(RippleTxArgs)
+	err = Args.Copy(param, args)
+	if err != nil {
+		return nil, err
+	}
+	return
+}
+
+func EncodeRippleTxArgs(args *RippleTxArgs) (data []byte, err error) {
+	BytesTy, _ := abi.NewType("bytes", "", nil)
+	IntTy, _ := abi.NewType("int", "", nil)
+
+	Args := abi.Arguments{
+		{Type: BytesTy, Name: "toAddress"},
+		{Type: IntTy, Name: "amount"},
+	}
+
+	data, err = Args.Pack(args.ToAddress, args.Amount)
+	return
 }
