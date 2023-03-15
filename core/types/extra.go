@@ -82,7 +82,7 @@ func ExtractHotstuffExtraPayload(extra []byte) (*HotstuffExtra, error) {
 // HotstuffFilteredHeader returns a filtered header which some information (like seal, committed seals)
 // are clean to fulfill the Istanbul hash rules. It returns nil if the extra-data cannot be
 // decoded/encoded by rlp.
-func HotstuffFilteredHeader(h *types.Header) *types.Header {
+func HotstuffFilteredHeader(h *types.Header) interface{} {
 	newHeader := types.CopyHeader(h)
 	extra, err := ExtractHotstuffExtra(newHeader)
 	if err != nil {
@@ -100,7 +100,24 @@ func HotstuffFilteredHeader(h *types.Header) *types.Header {
 
 	newHeader.Extra = append(newHeader.Extra[:HotstuffExtraVanity], payload...)
 
-	return newHeader
+	enc := []interface{}{
+		newHeader.ParentHash,
+		newHeader.UncleHash,
+		newHeader.Coinbase,
+		newHeader.Root,
+		newHeader.TxHash,
+		newHeader.ReceiptHash,
+		newHeader.Bloom,
+		newHeader.Difficulty,
+		newHeader.Number,
+		newHeader.GasLimit,
+		newHeader.GasUsed,
+		newHeader.Time,
+		newHeader.Extra,
+		newHeader.BaseFee,
+	}
+	return enc
+	//return newHeader
 }
 
 func HotstuffHeaderFillWithValidators(header *types.Header, vals []common.Address, epochStartHeight uint64, epochEndHeight uint64) error {
