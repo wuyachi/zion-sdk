@@ -161,15 +161,29 @@ type UnlockingStake struct {
 	Amount           Dec
 }
 
-type EpochInfo struct {
+type EpochInfoConfig struct {
 	ID          *big.Int
 	Validators  []common.Address
-	Signers     []common.Address
-	Voters      []common.Address
-	Proposers   []common.Address
 	StartHeight *big.Int
 	EndHeight   *big.Int
 }
+
+type EpochInfo struct {
+	EpochInfoConfig
+	Signers   []common.Address
+	Voters    []common.Address
+	Proposers []common.Address
+}
+
+//type EpochInfo struct {
+//	ID          *big.Int
+//	Validators  []common.Address
+//	Signers     []common.Address
+//	Voters      []common.Address
+//	Proposers   []common.Address
+//	StartHeight *big.Int
+//	EndHeight   *big.Int
+//}
 
 func (m *EpochInfo) Decode(payload []byte) error {
 	var data struct {
